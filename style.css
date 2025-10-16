@@ -29,10 +29,15 @@ header {
     z-index: 1002;
     box-shadow: 0 4px 20px rgba(0,0,0,0.6);
 }
+header .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 header .logo img {
     height: 100px;
     cursor: pointer;
-    transition: 0.3s, transform 0.3s;
+    transition: transform 0.3s ease;
 }
 header .logo img:hover {
     transform: scale(1.3);
@@ -47,7 +52,8 @@ header .logo img:hover {
     cursor: pointer;
     font-size: 1.8rem;
     color: #fff;
-    transition: 0.3s, transform 0.2s;
+    transition: transform 0.2s ease;
+    z-index: 1004; /* acima do header */
 }
 #btn-carrinho:hover {
     transform: scale(1.2);
@@ -167,10 +173,10 @@ main#produtos {
     background: #1f1f1f;
     padding: 20px;
     transform: translateX(100%);
-    transition: 0.4s;
+    transition: transform 0.4s ease;
     display: flex;
     flex-direction: column;
-    z-index: 1003; /* acima do header */
+    z-index: 1005; /* acima do header e botão */
 }
 #carrinho.active {
     transform: translateX(0);
@@ -221,12 +227,16 @@ main#produtos {
     margin-top: 8px;
     width: 100%;
     padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
 }
 #carrinho button#finalizar {
     background: #25d366;
     margin-top: 8px;
     width: 100%;
     padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 /* MODAL */
