@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KOMPLETT - Loja Ultra Premium</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <div class="logo"><img src="logokomplett.png" alt="KOMPLETT Logo"></div>
+  <button id="btn-carrinho">🛒<span id="badge">0</span></button>
+</header>
+
+<nav>
+  <input type="text" id="search" placeholder="Buscar produtos...">
+  <button onclick="filtrarCategoria('todos')">Todos</button>
+  <button onclick="filtrarCategoria('camisetas')">Camisetas</button>
+  <button onclick="filtrarCategoria('moletom')">Moletom</button>
+  <button onclick="filtrarCategoria('acessorios')">Acessórios</button>
+</nav>
+
+<main id="produtos"></main>
+
+<div id="carrinho">
+  <h2>Carrinho</h2>
+  <div id="itens-carrinho"></div>
+  <button id="limpar">Limpar Carrinho</button>
+  <button id="finalizar">Finalizar no WhatsApp</button>
+</div>
+
+<!-- MODAL DE IMAGEM -->
+<div id="modal">
+  <div class="content">
+    <button class="close">&times;</button>
+    <button class="prev">&#10094;</button>
+    <img src="" alt="Produto">
+    <button class="next">&#10095;</button>
+  </div>
+</div>
+
+<footer>© 2025 KOMPLETT - Todos os direitos reservados</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
