@@ -53,7 +53,7 @@ header .logo img:hover {
     font-size: 1.8rem;
     color: #fff;
     transition: transform 0.2s ease;
-    z-index: 1004; /* acima do header */
+    z-index: 1004;
 }
 #btn-carrinho:hover {
     transform: scale(1.2);
@@ -85,7 +85,7 @@ nav {
 nav input#search {
     padding: 8px 12px;
     border-radius: 8px;
-    border: 2px solid #8a2be2;
+    border: 2px solid #fff;
     background: #1f1f1f;
     color: #fff;
     width: 200px;
@@ -94,15 +94,18 @@ nav input#search::placeholder {
     color: #ccc;
 }
 nav button {
-    background: #1f1f1f;
-    border: 2px solid #8a2be2;
+    background: #fff;
+    color: #000;
+    border: none;
     padding: 8px 16px;
     border-radius: 10px;
     cursor: pointer;
     font-weight: 600;
+    transition: background 0.3s, color 0.3s;
 }
 nav button:hover {
     background: #8a2be2;
+    color: #fff;
 }
 
 /* PRODUTOS */
@@ -151,16 +154,19 @@ main#produtos {
     margin-bottom: 10px;
 }
 .card .btn-add {
-    background: #8a2be2;
+    background: #fff;
+    color: #000;
     border: none;
     width: 100%;
     padding: 10px;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
+    transition: background 0.3s, color 0.3s;
 }
 .card .btn-add:hover {
-    background: #4b0082;
+    background: #8a2be2;
+    color: #fff;
 }
 
 /* CARRINHO SOBREPOSTO */
@@ -176,7 +182,7 @@ main#produtos {
     transition: transform 0.4s ease;
     display: flex;
     flex-direction: column;
-    z-index: 1005; /* acima do header e botão */
+    z-index: 1005;
 }
 #carrinho.active {
     transform: translateX(0);
@@ -186,6 +192,27 @@ main#produtos {
     margin-bottom: 20px;
     font-size: 1.6rem;
 }
+
+/* Botão Fechar Carrinho */
+#fechar-carrinho {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #fff;
+    color: #000;
+    border: none;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+#fechar-carrinho:hover {
+    background: #8a2be2;
+    color: #fff;
+}
+
 .item-carrinho {
     display: flex;
     align-items: center;
@@ -213,30 +240,38 @@ main#produtos {
     align-items: center;
 }
 .item-carrinho .quantidade button {
-    background: #8a2be2;
+    background: #fff;
+    color: #000;
     border: none;
     padding: 5px 10px;
     border-radius: 4px;
     cursor: pointer;
+    transition: background 0.3s, color 0.3s;
 }
 .item-carrinho .quantidade button:hover {
-    background: #4b0082;
+    background: #8a2be2;
+    color: #fff;
 }
-#carrinho button#limpar {
-    background: #ff0000;
-    margin-top: 8px;
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-}
+#carrinho button#limpar,
 #carrinho button#finalizar {
-    background: #25d366;
     margin-top: 8px;
     width: 100%;
     padding: 10px;
     border-radius: 8px;
     cursor: pointer;
+    background: #fff;
+    color: #000;
+    font-weight: 600;
+    border: none;
+    transition: background 0.3s, color 0.3s;
+}
+#carrinho button#limpar:hover {
+    background: #ff0000;
+    color: #fff;
+}
+#carrinho button#finalizar:hover {
+    background: #25d366;
+    color: #fff;
 }
 
 /* MODAL */
@@ -271,33 +306,37 @@ main#produtos {
     position: absolute;
     top: 10px;
     right: 10px;
-    background: #ff0000;
-    color: #fff;
+    background: #fff;
+    color: #000;
     border: none;
     padding: 8px;
     border-radius: 50%;
     cursor: pointer;
     font-size: 1.2rem;
+    transition: background 0.3s, color 0.3s;
 }
 #modal .close:hover {
-    background: #c70000;
+    background: #8a2be2;
+    color: #fff;
 }
 #modal .prev,
 #modal .next {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(138,43,226,0.7);
-    color: #fff;
+    background: #fff;
+    color: #000;
     border: none;
     padding: 10px;
     border-radius: 50%;
     cursor: pointer;
     font-size: 1.2rem;
+    transition: background 0.3s, color 0.3s;
 }
 #modal .prev:hover,
 #modal .next:hover {
     background: #8a2be2;
+    color: #fff;
 }
 #modal .prev {
     left: -40px;
