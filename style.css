@@ -47,16 +47,19 @@ header .logo img:hover {
 #btn-carrinho {
     position: absolute;
     right: 20px;
-    background: transparent;
+    background: white;
     border: none;
     cursor: pointer;
     font-size: 1.8rem;
-    color: #fff;
-    transition: transform 0.2s ease;
+    color: #000;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
     z-index: 1004;
 }
 #btn-carrinho:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
+    background: #ddd;
 }
 #btn-carrinho span {
     position: absolute;
@@ -85,7 +88,7 @@ nav {
 nav input#search {
     padding: 8px 12px;
     border-radius: 8px;
-    border: 2px solid #fff;
+    border: 2px solid #8a2be2;
     background: #1f1f1f;
     color: #fff;
     width: 200px;
@@ -94,18 +97,16 @@ nav input#search::placeholder {
     color: #ccc;
 }
 nav button {
-    background: #fff;
-    color: #000;
+    background: white;
+    color: black;
     border: none;
     padding: 8px 16px;
     border-radius: 10px;
     cursor: pointer;
     font-weight: 600;
-    transition: background 0.3s, color 0.3s;
 }
 nav button:hover {
-    background: #8a2be2;
-    color: #fff;
+    background: #ddd;
 }
 
 /* PRODUTOS */
@@ -154,19 +155,17 @@ main#produtos {
     margin-bottom: 10px;
 }
 .card .btn-add {
-    background: #fff;
-    color: #000;
+    background: white;
+    color: black;
     border: none;
     width: 100%;
     padding: 10px;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
-    transition: background 0.3s, color 0.3s;
 }
 .card .btn-add:hover {
-    background: #8a2be2;
-    color: #fff;
+    background: #ddd;
 }
 
 /* CARRINHO SOBREPOSTO */
@@ -192,25 +191,21 @@ main#produtos {
     margin-bottom: 20px;
     font-size: 1.6rem;
 }
-
-/* Botão Fechar Carrinho */
 #fechar-carrinho {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    background: #fff;
-    color: #000;
+    top: 10px;
+    right: 10px;
+    background: white;
+    color: black;
     border: none;
-    font-size: 1.2rem;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
+    padding: 8px 12px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background 0.3s, color 0.3s;
+    font-weight: bold;
+    z-index: 1010;
 }
 #fechar-carrinho:hover {
-    background: #8a2be2;
-    color: #fff;
+    background: #ddd;
 }
 
 .item-carrinho {
@@ -240,38 +235,30 @@ main#produtos {
     align-items: center;
 }
 .item-carrinho .quantidade button {
-    background: #fff;
-    color: #000;
+    background: white;
+    color: black;
     border: none;
     padding: 5px 10px;
     border-radius: 4px;
     cursor: pointer;
-    transition: background 0.3s, color 0.3s;
 }
 .item-carrinho .quantidade button:hover {
-    background: #8a2be2;
-    color: #fff;
+    background: #ddd;
 }
 #carrinho button#limpar,
 #carrinho button#finalizar {
+    background: white;
+    color: black;
     margin-top: 8px;
     width: 100%;
     padding: 10px;
     border-radius: 8px;
     cursor: pointer;
-    background: #fff;
-    color: #000;
-    font-weight: 600;
     border: none;
-    transition: background 0.3s, color 0.3s;
+    font-weight: 600;
 }
-#carrinho button#limpar:hover {
-    background: #ff0000;
-    color: #fff;
-}
-#carrinho button#finalizar:hover {
-    background: #25d366;
-    color: #fff;
+#carrinho button:hover {
+    background: #ddd;
 }
 
 /* MODAL */
@@ -306,37 +293,33 @@ main#produtos {
     position: absolute;
     top: 10px;
     right: 10px;
-    background: #fff;
-    color: #000;
+    background: white;
+    color: black;
     border: none;
     padding: 8px;
     border-radius: 50%;
     cursor: pointer;
     font-size: 1.2rem;
-    transition: background 0.3s, color 0.3s;
 }
 #modal .close:hover {
-    background: #8a2be2;
-    color: #fff;
+    background: #ddd;
 }
 #modal .prev,
 #modal .next {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: #fff;
-    color: #000;
+    background: white;
+    color: black;
     border: none;
     padding: 10px;
     border-radius: 50%;
     cursor: pointer;
     font-size: 1.2rem;
-    transition: background 0.3s, color 0.3s;
 }
 #modal .prev:hover,
 #modal .next:hover {
-    background: #8a2be2;
-    color: #fff;
+    background: #ddd;
 }
 #modal .prev {
     left: -40px;
