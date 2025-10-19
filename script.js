@@ -1,5 +1,5 @@
 const produtos=[
-  {id:1,nome:'Mini Caixa de Som Bluetooth Metálica 3W ',preco:99.90,categoria:'Eletrônicos',imagens:['MiniCaixadeSomBluetoothMetálicaPrata.png','MiniCaixadeSomBluetoothMetálicaN3.png','MiniCaixadeSomBluetoothMetálicaN1.png','MiniCaixadeSomBluetoothMetálicaN2.png']},
+  {id:1,nome:'Mini Caixa de Som Bluetooth Metálica 3W ',preco:99.90,categoria:'Eletrônicos',imagens:['MiniCaixadeSomBluetoothMetálicaPrata.png','MiniCaixadeSomBluetoothMetálicaN3.png','MiniCaixadeSomBluetoothMetálicaN1.png','MiniCaixadeSomBluetoothMetálicaN2.png','MiniCaixadeSomBluetoothMetálicaAzul.png','MiniCaixadeSomBluetoothMetálicaDourado.png','MiniCaixadeSomBluetoothMetálicaDourado.png']},
   {id:2,nome:'Fone Bluetooth 5.0 Intra-Auricular',preco:199.90,categoria:'Eletrônicos',imagens:['FoneCapaBranco.png','FonePreto.png','FoneRosa.png']},
   {id:3,nome:'Fone Sem Fio Bluetooth i12 TWS',preco:79.90,categoria:'eletronicos',imagens:['FoneBluetoothCapa.png','FoneBluetoothPreto.png','FoneBluetoothVerde.png','FoneBluetoothAzul.png','FoneBluetoothAmarelo.png','FoneBluetoothBranco.png','FoneBluetoothCapa2.png']},
   {id:4,nome:'Camiseta Street Wear',preco:89.90,categoria:'camisetas',imagens:['https://via.placeholder.com/700x500/8a2be2/fff?text=Camiseta4','https://via.placeholder.com/700x500/8a2be2/fff?text=Camiseta5','https://via.placeholder.com/700x500/8a2be2/fff?text=Camiseta6']},
@@ -154,4 +154,5 @@ modalImg.addEventListener('mousemove',e=>{
 // INICIAR
 renderProdutos(produtos);
 atualizarCarrinho(); // 🔹 exibe o carrinho salvo ao abrir
+
 
