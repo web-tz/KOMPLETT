@@ -1,19 +1,18 @@
 // ===== PRODUTOS =====
 const produtos = [
-  {id:1,nome:'Fone Bluetooth 5.0 Branco Intra-Auricular',preco:29.99,categoria:'Eletrônicos',qtd:10,imagens:['CapafoneN1.png','CapafoneN2.png','CapafoneN3.png','CapafoneN4.png','CapafoneN5.png']},
+  {id:1,nome:'Fone Bluetooth 5.0 Branco Intra-Auricular',preco:29.99,categoria:'Eletrônicos',qtd:5,imagens:['CapafoneN1.png','CapafoneN2.png','CapafoneN3.png','CapafoneN4.png','CapafoneN5.png']},
   {id:2,nome:'Fone Sem Fio Bluetooth i12 TWS',preco:31.99,categoria:'Eletrônicos',qtd:0,imagens:['Capafonetw.png','CapafoneN1tw.png','CapafoneN2tw.png','CapafoneN4tw.png','CapafoneN5tw.png','CapafoneN6tw.png']},
-  {id:3,nome:'Camiseta Street Wear',preco:89.90,categoria:'Camisetas',qtd:15,imagens:['https://via.placeholder.com/700x500/8a2be2/fff?text=Camiseta4','https://via.placeholder.com/700x500/8a2be2/fff?text=Camiseta5','https://via.placeholder.com/700x500/8a2be2/fff?text=Camiseta6']},
-  {id:4,nome:'Mochila KOMPLETT',preco:159.90,categoria:'Acessórios',qtd:5,imagens:['https://via.placeholder.com/700x500/000/fff?text=Mochila1','https://via.placeholder.com/700x500/000/fff?text=Mochila2','https://via.placeholder.com/700x500/000/fff?text=Mochila3']}
+  {id:3,nome:'Camiseta Street Wear',preco:89.90,categoria:'Camisetas',qtd:10,imagens:['https://via.placeholder.com/700x500/8a2be2/fff?text=Camiseta4','https://via.placeholder.com/700x500/8a2be2/fff?text=Camiseta5','https://via.placeholder.com/700x500/8a2be2/fff?text=Camiseta6']},
+  {id:4,nome:'Mochila KOMPLETT',preco:159.90,categoria:'Acessórios',qtd:0,imagens:['https://via.placeholder.com/700x500/000/fff?text=Mochila1','https://via.placeholder.com/700x500/000/fff?text=Mochila2','https://via.placeholder.com/700x500/000/fff?text=Mochila3']}
 ];
 
-// 🔹 Corrige capitalização e remove duplicadas de categoria
+// ===== CATEGORIAS =====
 const categoriasUnicas = [...new Set(produtos.map(p => {
   const nomeCorrigido = p.categoria.charAt(0).toUpperCase() + p.categoria.slice(1).toLowerCase();
   p.categoria = nomeCorrigido;
   return nomeCorrigido;
-}))].sort((a, b) => a.localeCompare(b, 'pt-BR'));
+}))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
 
-// 🔹 Gera botões de categoria automaticamente
 const nav = document.querySelector('nav');
 const searchInput = document.getElementById('search');
 nav.innerHTML = '';
@@ -22,72 +21,69 @@ const btnTodos = document.createElement('button');
 btnTodos.textContent = 'Todos';
 btnTodos.onclick = () => filtrarCategoria('todos');
 nav.appendChild(btnTodos);
-categoriasUnicas.forEach(cat => {
+categoriasUnicas.forEach(cat=>{
   const btn = document.createElement('button');
   btn.textContent = cat;
-  btn.onclick = () => filtrarCategoria(cat);
+  btn.onclick = ()=>filtrarCategoria(cat);
   nav.appendChild(btn);
 });
 
-// 🔹 Carrega carrinho salvo ou inicia vazio
+// ===== CARRINHO =====
 let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 
-// ===== FUNÇÕES =====
+// ===== RENDERIZA PRODUTOS =====
 function renderProdutos(lista){
   const container = document.getElementById('produtos');
   container.innerHTML = '';
-  const listaOrdenada = [...lista].sort((a,b) => a.nome.localeCompare(b.nome, 'pt-BR'));
-  listaOrdenada.forEach(prod => {
+  lista.sort((a,b)=>a.nome.localeCompare(b,'pt-BR')).forEach(prod=>{
     const card = document.createElement('div');
     card.classList.add('card');
     card.innerHTML = `
-      <div class="img-container">
+      <div class="img-wrapper">
         <img src="${prod.imagens[0]}" alt="${prod.nome}" onclick="abrirModal(${prod.id})">
-        ${prod.qtd === 0 ? '<div class="sob-encomenda">SOB ENCOMENDA</div>' : ''}
+        ${prod.qtd===0?'<span class="sob-encomenda">SOB ENCOMENDA</span>':''}
       </div>
       <div class="card-body">
         <h3>${prod.nome}</h3>
-        <p>R$ ${prod.preco.toFixed(2)}</p>
-        <button class="btn-add" ${prod.qtd === 0 ? 'disabled' : ''} onclick="adicionarCarrinho(${prod.id})">Adicionar ao Carrinho</button>
+        <p>${prod.qtd>0?`R$ ${prod.preco.toFixed(2)}`:'SOB ENCOMENDA'}</p>
+        <button class="btn-add" onclick="adicionarCarrinho(${prod.id})">Adicionar ao Carrinho</button>
       </div>
     `;
     container.appendChild(card);
   });
 }
 
-// FILTRAR
+// ===== FILTRO & PESQUISA =====
 function filtrarCategoria(cat){
-  if(cat === 'todos') renderProdutos(produtos);
-  else renderProdutos(produtos.filter(p => p.categoria === cat));
+  if(cat==='todos') renderProdutos(produtos);
+  else renderProdutos(produtos.filter(p=>p.categoria===cat));
 }
 
-// PESQUISA
-document.getElementById('search').addEventListener('input', e => {
+searchInput.addEventListener('input', e=>{
   const termo = e.target.value.toLowerCase();
-  const filtrados = produtos.filter(p => p.nome.toLowerCase().includes(termo));
-  renderProdutos(filtrados);
+  renderProdutos(produtos.filter(p=>p.nome.toLowerCase().includes(termo)));
 });
 
-// ===== CARRINHO =====
+// ===== CARRINHO FUNÇÕES =====
 function atualizarCarrinho(){
   const container = document.getElementById('itens-carrinho');
   const badge = document.getElementById('badge');
   container.innerHTML = '';
   let totalItems = 0;
 
-  carrinho.forEach(item => {
-    totalItems += item.qtd;
+  carrinho.forEach(item=>{
+    totalItems += 1;
     const div = document.createElement('div');
     div.classList.add('item-carrinho');
     div.innerHTML = `
       <img src="${item.imagem}" alt="${item.nome}">
       <div class="info">
         <p>${item.nome}</p>
-        <p>R$ ${(item.preco * item.qtd).toFixed(2)}</p>
+        <p>${item.qtd>0?`R$ ${(item.preco*item.qtd).toFixed(2)}`:'SOB ENCOMENDA'}</p>
       </div>
       <div class="quantidade">
         <button onclick="mudarQtd(${item.id}, -1)">-</button>
-        <span>${item.qtd}</span>
+        <span>${item.qtd>0?item.qtd:'SOB'}</span>
         <button onclick="mudarQtd(${item.id}, 1)">+</button>
       </div>
     `;
@@ -95,42 +91,44 @@ function atualizarCarrinho(){
   });
 
   badge.textContent = totalItems;
-  localStorage.setItem('carrinho', JSON.stringify(carrinho));
+  localStorage.setItem('carrinho',JSON.stringify(carrinho));
 }
 
 function adicionarCarrinho(id){
-  const produto = produtos.find(p => p.id === id);
-  const exist = carrinho.find(p => p.id === id);
-  if(exist) exist.qtd++;
-  else carrinho.push({...produto, qtd: 1, imagem: produto.imagens[0]});
+  const produto = produtos.find(p=>p.id===id);
+  const exist = carrinho.find(p=>p.id===id);
+  if(exist){
+    if(produto.qtd>0) exist.qtd++;
+  }else{
+    carrinho.push({...produto, qtd: produto.qtd>0?1:0, imagem: produto.imagens[0]});
+  }
   atualizarCarrinho();
 }
 
-function mudarQtd(id, valor){
-  const item = carrinho.find(p => p.id === id);
+function mudarQtd(id,valor){
+  const item = carrinho.find(p=>p.id===id);
   if(!item) return;
-  item.qtd += valor;
-  if(item.qtd <= 0) carrinho = carrinho.filter(p => p.id !== id);
+  if(item.qtd>0)item.qtd+=valor;
+  if(item.qtd<=0 && item.qtd!==0) carrinho = carrinho.filter(p=>p.id!==id);
   atualizarCarrinho();
 }
 
-// ===== BOTÕES CARRINHO =====
+// ===== BOTÕES =====
 document.getElementById('btn-carrinho').addEventListener('click', ()=>{
   document.getElementById('carrinho').classList.toggle('active');
 });
-
 document.getElementById('limpar').addEventListener('click', ()=>{
   carrinho = [];
   localStorage.removeItem('carrinho');
   atualizarCarrinho();
 });
-
 document.getElementById('finalizar').addEventListener('click', ()=>{
-  if(carrinho.length === 0){alert('Carrinho vazio!');return;}
+  if(carrinho.length===0){alert('Carrinho vazio!');return;}
   let msg = 'Olá, quero comprar:%0A';
-  carrinho.forEach(item => msg += `- ${item.nome} x${item.qtd} = R$ ${(item.preco*item.qtd).toFixed(2)}%0A`);
-  const total = carrinho.reduce((acc,item)=>acc+item.preco*item.qtd,0);
-  msg += `%0ATotal: R$ ${total.toFixed(2)}`;
+  carrinho.forEach(item=>{
+    if(item.qtd>0) msg+=`- ${item.nome} x${item.qtd} = R$ ${(item.preco*item.qtd).toFixed(2)}%0A`;
+    else msg+=`- ${item.nome} = SOB ENCOMENDA%0A`;
+  });
   window.open(`https://wa.me/5577981336827?text=${msg}`,'_blank');
 });
 
@@ -141,21 +139,32 @@ let currentImgs = [];
 let currentIndex = 0;
 
 function abrirModal(id){
-  const prod = produtos.find(p => p.id === id);
-  currentImgs = prod.imagens;
+  const produto = produtos.find(p=>p.id===id);
+  currentImgs = produto.imagens;
   currentIndex = 0;
   modalImg.src = currentImgs[currentIndex];
-  modal.style.display = 'flex';
+  modal.style.display='flex';
 }
-modal.querySelector('.close').onclick = ()=> modal.style.display='none';
-modal.querySelector('.prev').onclick = ()=> {
+
+modal.querySelector('.close').addEventListener('click', ()=>{modal.style.display='none';});
+modal.querySelector('.prev').addEventListener('click', ()=>{
   currentIndex = (currentIndex-1+currentImgs.length)%currentImgs.length;
   modalImg.src = currentImgs[currentIndex];
-};
-modal.querySelector('.next').onclick = ()=> {
+});
+modal.querySelector('.next').addEventListener('click', ()=>{
   currentIndex = (currentIndex+1)%currentImgs.length;
   modalImg.src = currentImgs[currentIndex];
-};
+});
+
+let isDragging=false, startX;
+modalImg.addEventListener('mousedown',e=>{isDragging=true; startX=e.clientX;});
+modalImg.addEventListener('mouseup',()=>{isDragging=false;});
+modalImg.addEventListener('mousemove',e=>{
+  if(!isDragging) return;
+  let dx=e.clientX-startX;
+  if(dx>50){currentIndex=(currentIndex-1+currentImgs.length)%currentImgs.length; modalImg.src=currentImgs[currentIndex]; isDragging=false;}
+  if(dx<-50){currentIndex=(currentIndex+1)%currentImgs.length; modalImg.src=currentImgs[currentIndex]; isDragging=false;}
+});
 
 // ===== INICIALIZA =====
 renderProdutos(produtos);
