@@ -14,6 +14,7 @@
       <img src="logokomplett.png" alt="KOMPLETT Logo">
     </div>
 
+    <!-- Ícone moderno de carrinho -->
     <button id="btn-carrinho" title="Abrir Carrinho">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="black" stroke-width="2" viewBox="0 0 24 24" width="28" height="28">
         <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.6 8h13.2M9 21a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z"/>
@@ -22,6 +23,7 @@
     </button>
   </header>
 
+  <!-- 🔹 Agora o JS gera os botões de categoria automaticamente -->
   <nav>
     <input type="text" id="search" placeholder="Buscar produtos...">
   </nav>
@@ -36,6 +38,7 @@
     <button id="finalizar">Finalizar no WhatsApp</button>
   </div>
 
+  <!-- MODAL DE IMAGEM -->
   <div id="modal">
     <div class="content">
       <button class="close">&times;</button>
@@ -49,6 +52,7 @@
 
   <script src="script.js"></script>
   <script>
+    // Fecha o carrinho ao clicar no X
     document.getElementById('fechar-carrinho').addEventListener('click', () => {
       document.getElementById('carrinho').classList.remove('active');
     });
