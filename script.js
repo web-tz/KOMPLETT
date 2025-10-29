@@ -1,19 +1,19 @@
 // ===== PRODUTOS =====
 const produtos = [
-  {id:1,nome:'Fone Bluetooth 5.0 Branco Intra-Auricular',preco:29.99,categoria:'Eletrônicos',imagens:['CapafoneN1.png','CapafoneN2.png','CapafoneN3.png','CapafoneN4.png','CapafoneN5.png']},
-  {id:2,nome:'Fone Sem Fio Bluetooth i12 TWS',preco:31.99,categoria:'Eletrônicos',imagens:['Capafonetw.png','CapafoneN1tw.png,','CapafoneN2tw.png','CapafoneN4tw.png','CapafoneN5tw.png','CapafoneN6tw.png']},
-  {id:3,nome:'Camiseta Street Wear',preco:89.90,categoria:'Camisetas',imagens:['https://via.placeholder.com/700x500/8a2be2/fff?text=Camiseta4','https://via.placeholder.com/700x500/8a2be2/fff?text=Camiseta5','https://via.placeholder.com/700x500/8a2be2/fff?text=Camiseta6']},
-  {id:4,nome:'Mochila KOMPLETT',preco:159.90,categoria:'Acessórios',imagens:['https://via.placeholder.com/700x500/000/fff?text=Mochila1','https://via.placeholder.com/700x500/000/fff?text=Mochila2','https://via.placeholder.com/700x500/000/fff?text=Mochila3']}
+  {id:1,nome:'Fone Bluetooth 5.0 Branco Intra-Auricular',preco:29.99,categoria:'Eletrônicos',qtd:10,imagens:['CapafoneN1.png','CapafoneN2.png','CapafoneN3.png','CapafoneN4.png','CapafoneN5.png']},
+  {id:2,nome:'Fone Sem Fio Bluetooth i12 TWS',preco:31.99,categoria:'Eletrônicos',qtd:0,imagens:['Capafonetw.png','CapafoneN1tw.png','CapafoneN2tw.png','CapafoneN4tw.png','CapafoneN5tw.png','CapafoneN6tw.png']},
+  {id:3,nome:'Camiseta Street Wear',preco:89.90,categoria:'Camisetas',qtd:15,imagens:['https://via.placeholder.com/700x500/8a2be2/fff?text=Camiseta4','https://via.placeholder.com/700x500/8a2be2/fff?text=Camiseta5','https://via.placeholder.com/700x500/8a2be2/fff?text=Camiseta6']},
+  {id:4,nome:'Mochila KOMPLETT',preco:159.90,categoria:'Acessórios',qtd:5,imagens:['https://via.placeholder.com/700x500/000/fff?text=Mochila1','https://via.placeholder.com/700x500/000/fff?text=Mochila2','https://via.placeholder.com/700x500/000/fff?text=Mochila3']}
 ];
 
 // 🔹 Corrige capitalização e remove duplicadas de categoria
 const categoriasUnicas = [...new Set(produtos.map(p => {
   const nomeCorrigido = p.categoria.charAt(0).toUpperCase() + p.categoria.slice(1).toLowerCase();
-  p.categoria = nomeCorrigido; // aplica padronização
+  p.categoria = nomeCorrigido;
   return nomeCorrigido;
 }))].sort((a, b) => a.localeCompare(b, 'pt-BR'));
 
-// 🔹 Gera botões de categoria automaticamente (ordenados)
+// 🔹 Gera botões de categoria automaticamente
 const nav = document.querySelector('nav');
 const searchInput = document.getElementById('search');
 nav.innerHTML = '';
@@ -33,8 +33,6 @@ categoriasUnicas.forEach(cat => {
 let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 
 // ===== FUNÇÕES =====
-
-// Renderiza produtos (ordenados alfabeticamente)
 function renderProdutos(lista){
   const container = document.getElementById('produtos');
   container.innerHTML = '';
@@ -43,11 +41,14 @@ function renderProdutos(lista){
     const card = document.createElement('div');
     card.classList.add('card');
     card.innerHTML = `
-      <img src="${prod.imagens[0]}" alt="${prod.nome}" onclick="abrirModal(${prod.id})">
+      <div class="img-container">
+        <img src="${prod.imagens[0]}" alt="${prod.nome}" onclick="abrirModal(${prod.id})">
+        ${prod.qtd === 0 ? '<div class="sob-encomenda">SOB ENCOMENDA</div>' : ''}
+      </div>
       <div class="card-body">
         <h3>${prod.nome}</h3>
         <p>R$ ${prod.preco.toFixed(2)}</p>
-        <button class="btn-add" onclick="adicionarCarrinho(${prod.id})">Adicionar ao Carrinho</button>
+        <button class="btn-add" ${prod.qtd === 0 ? 'disabled' : ''} onclick="adicionarCarrinho(${prod.id})">Adicionar ao Carrinho</button>
       </div>
     `;
     container.appendChild(card);
@@ -140,44 +141,22 @@ let currentImgs = [];
 let currentIndex = 0;
 
 function abrirModal(id){
-  const produto = produtos.find(p => p.id === id);
-  currentImgs = produto.imagens;
+  const prod = produtos.find(p => p.id === id);
+  currentImgs = prod.imagens;
   currentIndex = 0;
   modalImg.src = currentImgs[currentIndex];
   modal.style.display = 'flex';
 }
-
-modal.querySelector('.close').addEventListener('click', ()=>{modal.style.display='none';});
-modal.querySelector('.prev').addEventListener('click', ()=>{
-  currentIndex = (currentIndex - 1 + currentImgs.length) % currentImgs.length;
+modal.querySelector('.close').onclick = ()=> modal.style.display='none';
+modal.querySelector('.prev').onclick = ()=> {
+  currentIndex = (currentIndex-1+currentImgs.length)%currentImgs.length;
   modalImg.src = currentImgs[currentIndex];
-});
-modal.querySelector('.next').addEventListener('click', ()=>{
-  currentIndex = (currentIndex + 1) % currentImgs.length;
+};
+modal.querySelector('.next').onclick = ()=> {
+  currentIndex = (currentIndex+1)%currentImgs.length;
   modalImg.src = currentImgs[currentIndex];
-});
-
-// DRAG IMAGEM
-let isDragging = false, startX;
-modalImg.addEventListener('mousedown', e => {isDragging = true; startX = e.clientX;});
-modalImg.addEventListener('mouseup', ()=>{isDragging = false;});
-modalImg.addEventListener('mousemove', e => {
-  if(!isDragging) return;
-  let dx = e.clientX - startX;
-  if(dx > 50){
-    currentIndex = (currentIndex - 1 + currentImgs.length) % currentImgs.length;
-    modalImg.src = currentImgs[currentIndex];
-    isDragging = false;
-  }
-  if(dx < -50){
-    currentIndex = (currentIndex + 1) % currentImgs.length;
-    modalImg.src = currentImgs[currentIndex];
-    isDragging = false;
-  }
-});
+};
 
 // ===== INICIALIZA =====
 renderProdutos(produtos);
 atualizarCarrinho();
-
-
