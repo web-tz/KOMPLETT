@@ -1,9 +1,9 @@
 // ===== PRODUTOS =====
 const produtos = [
-  {id:1,nome:'Fone Bluetooth 5.0 Branco Intra-Auricular',preco:29.99,categoria:'Eletrônicos',qtd:5,imagens:['CapafoneN1.png','CapafoneN2.png','CapafoneN3.png','CapafoneN4.png','CapafoneN5.png']},
-  {id:2,nome:'Fone Sem Fio Bluetooth i12 TWS',preco:31.99,categoria:'Eletrônicos',qtd:0,imagens:['Capafonetw.png','CapafoneN1tw.png','CapafoneN2tw.png','CapafoneN4tw.png','CapafoneN5tw.png','CapafoneN6tw.png']},
-  {id:3,nome:'Camiseta Street Wear',preco:89.90,categoria:'Camisetas',qtd:10,imagens:['https://via.placeholder.com/700x500/8a2be2/fff?text=Camiseta4','https://via.placeholder.com/700x500/8a2be2/fff?text=Camiseta5','https://via.placeholder.com/700x500/8a2be2/fff?text=Camiseta6']},
-  {id:4,nome:'Mochila KOMPLETT',preco:159.90,categoria:'Acessórios',qtd:0,imagens:['https://via.placeholder.com/700x500/000/fff?text=Mochila1','https://via.placeholder.com/700x500/000/fff?text=Mochila2','https://via.placeholder.com/700x500/000/fff?text=Mochila3']}
+  {id:1,nome:'Fone Bluetooth 5.0 Branco Intra-Auricular',preco:29.99,categoria:'Eletrônicos',qtd:2,imagens:['CapafoneN1.png','CapafoneN2.png','CapafoneN3.png','CapafoneN4.png','CapafoneN5.png']},
+  {id:2,nome:'Fone Sem Fio Bluetooth i12 TWS',preco:31.99,categoria:'Eletrônicos',qtd:2,imagens:['Capafonetw.png','CapafoneN1tw.png','CapafoneN2tw.png','CapafoneN4tw.png','CapafoneN5tw.png','CapafoneN6tw.png']},
+  {id:3,nome:'Cabo Carregamento Turbo Kaid Tipo C',preco:17.99,categoria:'Cabos e Carregadores',qtd:2,imagens:['CapoTIPOC.png','cabotipoCc.png','CaboC.png']},
+  {id:4,nome:'Cabo Carregamento Turbo IOS',preco:17,99,categoria:'Cabos e Carregadores',qtd:3,imagens:['CabotipoIOS.png','CabokaidiN1.png','CaboIOS.png']}
 ];
 
 // ===== CATEGORIAS =====
@@ -169,3 +169,4 @@ modalImg.addEventListener('mousemove',e=>{
 // ===== INICIALIZA =====
 renderProdutos(produtos);
 atualizarCarrinho();
+
