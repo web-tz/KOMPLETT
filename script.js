@@ -3,30 +3,44 @@ const produtos = [
   {id:1,nome:'Fone Bluetooth 5.0 Branco Intra-Auricular',preco:29.99,categoria:'Eletrônicos',qtd:2,imagens:['CapafoneN1.png','CapafoneN2.png','CapafoneN3.png','CapafoneN4.png','CapafoneN5.png']},
   {id:2,nome:'Fone Sem Fio Bluetooth i12 TWS',preco:31.99,categoria:'Eletrônicos',qtd:2,imagens:['Capafonetw.png','CapafoneN1tw.png','CapafoneN2tw.png','CapafoneN4tw.png','CapafoneN5tw.png','CapafoneN6tw.png']},
   {id:3,nome:'Cabo Carregamento Turbo Kaid Tipo C',preco:17.99,categoria:'Cabos e Carregadores',qtd:2,imagens:['CapoTIPOC.png','cabotipoCc.png','CaboC.png']},
-  {id:4,nome:'Cabo Carregamento Turbo IOS',preco:17.99,categoria:'Cabos e Carregadores',qtd:3,imagens:['CabotipoIOS.png','CabokaidiN1.png','CaboIOS.png']}
+  {id:4,nome:'Cabo Carregamento Turbo IOS',preco:17.99,categoria:'Cabos e Carregadores',qtd:3,imagens:['CabotipoIOS.png','CabokaidiN1.png','CaboIOS.png']},
+  // exemplo de produto fitness (pode remover ou duplicar depois)
+  {id:5,nome:'Garrafa Térmica Esportiva 1L',preco:39.99,categoria:'Fitness',qtd:4,imagens:['garrafa1.png','garrafa2.png']}
 ];
 
 // ===== CATEGORIAS =====
-const categoriasUnicas = [...new Set(produtos.map(p => {
-  const nomeCorrigido = p.categoria.charAt(0).toUpperCase() + p.categoria.slice(1).toLowerCase();
-  p.categoria = nomeCorrigido;
-  return nomeCorrigido;
-}))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+// gera lista única + permite adicionar novas categorias no futuro
+function gerarCategorias() {
+  const categorias = [...new Set(produtos.map(p => {
+    const nomeCorrigido = p.categoria.charAt(0).toUpperCase() + p.categoria.slice(1).toLowerCase();
+    p.categoria = nomeCorrigido;
+    return nomeCorrigido;
+  }))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+
+  return categorias;
+}
 
 const nav = document.querySelector('nav');
 const searchInput = document.getElementById('search');
 nav.innerHTML = '';
 nav.appendChild(searchInput);
+
 const btnTodos = document.createElement('button');
 btnTodos.textContent = 'Todos';
 btnTodos.onclick = () => filtrarCategoria('todos');
 nav.appendChild(btnTodos);
-categoriasUnicas.forEach(cat=>{
-  const btn = document.createElement('button');
-  btn.textContent = cat;
-  btn.onclick = ()=>filtrarCategoria(cat);
-  nav.appendChild(btn);
-});
+
+// cria botões automaticamente
+function renderCategorias() {
+  const categoriasUnicas = gerarCategorias();
+  categoriasUnicas.forEach(cat=>{
+    const btn = document.createElement('button');
+    btn.textContent = cat;
+    btn.onclick = ()=>filtrarCategoria(cat);
+    nav.appendChild(btn);
+  });
+}
+renderCategorias();
 
 // ===== CARRINHO =====
 let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
@@ -169,5 +183,3 @@ modalImg.addEventListener('mousemove',e=>{
 // ===== INICIALIZA =====
 renderProdutos(produtos);
 atualizarCarrinho();
-
-
