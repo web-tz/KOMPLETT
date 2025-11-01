@@ -8,14 +8,10 @@ const produtos = [
 ];
 
 // ===== CATEGORIAS =====
-// gera lista única + permite adicionar novas categorias no futuro
+// Gera lista única + permite adicionar novas categorias no futuro
 function gerarCategorias() {
-  const categorias = [...new Set(produtos.map(p => {
-    const nomeCorrigido = p.categoria.charAt(0).toUpperCase() + p.categoria.slice(1).toLowerCase();
-    p.categoria = nomeCorrigido;
-    return nomeCorrigido;
-  }))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
-
+  const categorias = [...new Set(produtos.map(p => p.categoria.trim()))]
+    .sort((a,b)=>a.localeCompare(b,'pt-BR'));
   return categorias;
 }
 
@@ -29,7 +25,7 @@ btnTodos.textContent = 'Todos';
 btnTodos.onclick = () => filtrarCategoria('todos');
 nav.appendChild(btnTodos);
 
-// cria botões automaticamente
+// Cria botões automaticamente
 function renderCategorias() {
   const categoriasUnicas = gerarCategorias();
   categoriasUnicas.forEach(cat=>{
@@ -182,8 +178,3 @@ modalImg.addEventListener('mousemove',e=>{
 // ===== INICIALIZA =====
 renderProdutos(produtos);
 atualizarCarrinho();
-
-
-
-
-
