@@ -4,7 +4,8 @@ const produtos = [
   {id:2,nome:'Fone Sem Fio Bluetooth i12 TWS',preco:31.99,categoria:'Eletrônicos',qtd:2,imagens:['Capafonetw.png','CapafoneN1tw.png','CapafoneN2tw.png','CapafoneN4tw.png','CapafoneN5tw.png','CapafoneN6tw.png']},
   {id:3,nome:'Cabo Carregamento Turbo Kaid Tipo C',preco:17.99,categoria:'Cabos e Carregadores',qtd:2,imagens:['CapoTIPOC.png','cabotipoCc.png','CaboC.png']},
   {id:4,nome:'Cabo Carregamento Turbo IOS',preco:17.99,categoria:'Cabos e Carregadores',qtd:3,imagens:['CaboIOS.png','CabokaidiN1.png','CabotipoIOS.png']},
-  {id:5,nome:'Garrafa Térmica Esportiva 1L',preco:39.99,categoria:'Fitness',qtd:4,imagens:['garrafa1.png','garrafa2.png']}
+  {id:5,nome:'Pré Treino Pre Workout Pote 300g Sabor Energético FTW',preco:78.99,categoria:'Fitness',qtd:0,imagens:['pretreinoenergeticocapa.png','pretreinoenergetico1.png','pretreinoenergetico2.png','pretreinoenergetico3.png']},
+  {id:6,nome:'Whey Concentrado Ultra Protein Refil 900g Sabor Morango - FTW',preco:69.99,categoria:'Fitness',qtd:0,imagens:['wheyultramorangocapa.png','wheyultramorango1.png','wheyultramorango2.png']}
 ];
 
 // ===== CATEGORIAS =====
@@ -178,3 +179,4 @@ modalImg.addEventListener('mousemove',e=>{
 // ===== INICIALIZA =====
 renderProdutos(produtos);
 atualizarCarrinho();
+
