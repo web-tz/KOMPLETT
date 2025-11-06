@@ -12,7 +12,23 @@ const produtos = [
   {id:10,nome:'Creatina Monohidratada 100% Pura Refil 300g - FTW',preco:45.00,categoria:'Fitness',qtd:0,imagens:['creatinaftwcapa.png','creatinaftw1.png','creatinaftw2.png']},
   {id:12,nome:'Whey Protein Gourmet 900g - Fn Forbis - Proteina Sabor Chocolate trufado',preco:59.99,categoria:'Fitness',qtd:0,imagens:['wheychocotrufcapa.png','wheychocotruf1.png']},
   {id:13,nome:'Coqueteleira Shaker - Academia 700ml Dark Lab',preco:29.99,categoria:'Fitness',qtd:0,imagens:['coqdarklabcapa.png','coqdarklab1.png','coqdarklab2.png']},
-  {id:14,nome:'Strap Musculação - Tala Strep Treino Academia - Resistente',preco:25.00,categoria:'Fitness',qtd:0,imagens:['strappretocapa.png','strappretopa.png','strappretor.png','strappretov.png','strappretovv.png','strappretofi.png']}
+  {id:14,nome:'Strap Musculação - Tala Strep Treino Academia - Resistente',preco:25.00,categoria:'Fitness',qtd:0,imagens:['strappretocapa.png','strappretopa.png','strappretor.png','strappretov.png','strappretovv.png','strappretofi.png']},
+  {id:15,nome:'Pré-Treino Evolution Workout 300g Sabor Blueberry Soldiers Nutrition',preco:64.99,categoria:'Fitness',qtd:0,imagens:['soldiersblueberrcapa.png','soldiersblueberr1.png','soldiersblueberr2.png','soldiersblueberr3.png']},
+  {id:16,nome:'Creatina 100% Pura 150g Integralmédica',preco:39.99,categoria:'Fitness',qtd:0,imagens:['creatinintegcapa.png','creatininteg1.png','creatininteg2.png']},
+  {id:17,nome:'Pré-Treino Evolution Workout 300g Sabor Limonada Suiça Soldiers Nutrition',preco:64.99,categoria:'Fitness',qtd:0,imagens:['pretreinolimonadacapa.png','pretreinolimonada1.png','pretreinolimonada2.png','pretreinolimonada3.png']},
+  {id:18,nome:'Pré-Treino Evolution Workout 300g Sabor Melancia Soldiers Nutrition',preco:64.99,categoria:'Fitness',qtd:0,imagens:['pretreinomelanciacapa.png','pretreinomelancia1.png','pretreinomelancia2.png','pretreinomelancia3.png']},
+  {id:19,nome:'',preco:,categoria:'Fitness',qtd:0,imagens:['','','','']},
+  {id:20,nome:'',preco:,categoria:'Fitness',qtd:0,imagens:['','','','']},
+  {id:14,nome:'',preco:,categoria:'Fitness',qtd:0,imagens:['','','','']},
+  {id:14,nome:'',preco:,categoria:'Fitness',qtd:0,imagens:['','','','']},
+  {id:14,nome:'',preco:,categoria:'Fitness',qtd:0,imagens:['','','','']},
+  {id:14,nome:'',preco:,categoria:'Fitness',qtd:0,imagens:['','','','']},
+  {id:14,nome:'',preco:,categoria:'Fitness',qtd:0,imagens:['','','','']},
+  {id:14,nome:'',preco:,categoria:'Fitness',qtd:0,imagens:['','','','']},
+  {id:14,nome:'',preco:,categoria:'Fitness',qtd:0,imagens:['','','','']},
+  {id:14,nome:'',preco:,categoria:'Fitness',qtd:0,imagens:['','','','']},
+  {id:14,nome:'',preco:,categoria:'Fitness',qtd:0,imagens:['','','','']},
+  {id:14,nome:'',preco:,categoria:'Fitness',qtd:0,imagens:['','','','']},
 ];
 
 // ===== CATEGORIAS =====
@@ -186,5 +202,6 @@ modalImg.addEventListener('mousemove',e=>{
 // ===== INICIALIZA =====
 renderProdutos(produtos);
 atualizarCarrinho();
+
 
 
