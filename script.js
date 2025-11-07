@@ -20,30 +20,30 @@ const produtos = [
 ];
 
 // ===== CATEGORIAS =====
+// Gera lista única + permite adicionar novas categorias no futuro
 function gerarCategorias() {
-  return [...new Set(produtos.map(p => p.categoria.trim()))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+  const categorias = [...new Set(produtos.map(p => p.categoria.trim()))]
+    .sort((a,b)=>a.localeCompare(b,'pt-BR'));
+  return categorias;
 }
 
 const nav = document.querySelector('nav');
 const searchInput = document.getElementById('search');
-
-// Garante que o campo de busca exista antes de limpar o nav
-if (nav && searchInput) {
-  const tempSearch = searchInput.cloneNode(true);
-  nav.innerHTML = '';
-  nav.appendChild(tempSearch);
-}
+nav.innerHTML = '';
+nav.appendChild(searchInput);
 
 const btnTodos = document.createElement('button');
 btnTodos.textContent = 'Todos';
 btnTodos.onclick = () => filtrarCategoria('todos');
 nav.appendChild(btnTodos);
 
+// Cria botões automaticamente
 function renderCategorias() {
-  gerarCategorias().forEach(cat => {
+  const categoriasUnicas = gerarCategorias();
+  categoriasUnicas.forEach(cat=>{
     const btn = document.createElement('button');
     btn.textContent = cat;
-    btn.onclick = () => filtrarCategoria(cat);
+    btn.onclick = ()=>filtrarCategoria(cat);
     nav.appendChild(btn);
   });
 }
@@ -66,7 +66,7 @@ function renderProdutos(lista){
       </div>
       <div class="card-body">
         <h3>${prod.nome}</h3>
-        <p>R$ ${prod.preco.toFixed(2).replace('.', ',')}</p>
+        <p>${prod.qtd>0?`R$ ${prod.preco.toFixed(2)}`:'SOB ENCOMENDA'}</p>
         <button class="btn-add" onclick="adicionarCarrinho(${prod.id})">Adicionar ao Carrinho</button>
       </div>
     `;
@@ -80,12 +80,12 @@ function filtrarCategoria(cat){
   else renderProdutos(produtos.filter(p=>p.categoria===cat));
 }
 
-document.getElementById('search').addEventListener('input', e=>{
+searchInput.addEventListener('input', e=>{
   const termo = e.target.value.toLowerCase();
   renderProdutos(produtos.filter(p=>p.nome.toLowerCase().includes(termo)));
 });
 
-// ===== CARRINHO =====
+// ===== CARRINHO FUNÇÕES =====
 function atualizarCarrinho(){
   const container = document.getElementById('itens-carrinho');
   const badge = document.getElementById('badge');
@@ -100,11 +100,11 @@ function atualizarCarrinho(){
       <img src="${item.imagem}" alt="${item.nome}">
       <div class="info">
         <p>${item.nome}</p>
-        <p>R$ ${(item.preco*item.qtd).toFixed(2).replace('.', ',')}</p>
+        <p>${item.qtd>0?`R$ ${(item.preco*item.qtd).toFixed(2)}`:'SOB ENCOMENDA'}</p>
       </div>
       <div class="quantidade">
         <button onclick="mudarQtd(${item.id}, -1)">-</button>
-        <span>${item.qtd}</span>
+        <span>${item.qtd>0?item.qtd:'SOB'}</span>
         <button onclick="mudarQtd(${item.id}, 1)">+</button>
       </div>
     `;
@@ -119,9 +119,9 @@ function adicionarCarrinho(id){
   const produto = produtos.find(p=>p.id===id);
   const exist = carrinho.find(p=>p.id===id);
   if(exist){
-    exist.qtd++;
+    if(produto.qtd>0) exist.qtd++;
   }else{
-    carrinho.push({...produto, qtd: 1, imagem: produto.imagens[0]});
+    carrinho.push({...produto, qtd: produto.qtd>0?1:0, imagem: produto.imagens[0]});
   }
   atualizarCarrinho();
 }
@@ -129,8 +129,8 @@ function adicionarCarrinho(id){
 function mudarQtd(id,valor){
   const item = carrinho.find(p=>p.id===id);
   if(!item) return;
-  item.qtd += valor;
-  if(item.qtd <= 0) carrinho = carrinho.filter(p=>p.id!==id);
+  if(item.qtd>0)item.qtd+=valor;
+  if(item.qtd<=0 && item.qtd!==0) carrinho = carrinho.filter(p=>p.id!==id);
   atualizarCarrinho();
 }
 
@@ -147,12 +147,13 @@ document.getElementById('finalizar').addEventListener('click', ()=>{
   if(carrinho.length===0){alert('Carrinho vazio!');return;}
   let msg = 'Olá, quero comprar:%0A';
   carrinho.forEach(item=>{
-    msg+=`- ${item.nome} x${item.qtd} = R$ ${(item.preco*item.qtd).toFixed(2)}%0A`;
+    if(item.qtd>0) msg+=`- ${item.nome} x${item.qtd} = R$ ${(item.preco*item.qtd).toFixed(2)}%0A`;
+    else msg+=`- ${item.nome} = SOB ENCOMENDA%0A`;
   });
   window.open(`https://wa.me/5577981336827?text=${msg}`,'_blank');
 });
 
-// ===== MODAL =====
+// ===== MODAL IMAGEM =====
 let modal = document.getElementById('modal');
 let modalImg = modal.querySelector('img');
 let currentImgs = [];
@@ -174,6 +175,16 @@ modal.querySelector('.prev').addEventListener('click', ()=>{
 modal.querySelector('.next').addEventListener('click', ()=>{
   currentIndex = (currentIndex+1)%currentImgs.length;
   modalImg.src = currentImgs[currentIndex];
+});
+
+let isDragging=false, startX;
+modalImg.addEventListener('mousedown',e=>{isDragging=true; startX=e.clientX;});
+modalImg.addEventListener('mouseup',()=>{isDragging=false;});
+modalImg.addEventListener('mousemove',e=>{
+  if(!isDragging) return;
+  let dx=e.clientX-startX;
+  if(dx>50){currentIndex=(currentIndex-1+currentImgs.length)%currentImgs.length; modalImg.src=currentImgs[currentIndex]; isDragging=false;}
+  if(dx<-50){currentIndex=(currentIndex+1)%currentImgs.length; modalImg.src=currentImgs[currentIndex]; isDragging=false;}
 });
 
 // ===== INICIALIZA =====
