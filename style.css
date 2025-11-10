@@ -34,19 +34,13 @@ header {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
 }
 
-header .logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 header .logo img {
   height: 100px;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
 
-header .logo img:hover { transform: scale(1.3); }
+header .logo img:hover { transform: scale(1.2); }
 
 /* =======================
    BOTÃO CARRINHO
@@ -91,7 +85,6 @@ nav {
   margin-top: 130px;
   display: flex;
   justify-content: center;
-  gap: 10px;
   flex-wrap: wrap;
   padding: 10px 15px;
 }
@@ -113,31 +106,34 @@ nav input#search {
   background: #1f1f1f;
   color: #fff;
   width: 260px;
+  text-align: center;
 }
 
 nav input#search::placeholder { color: #ccc; }
 
-/* categorias como botões pequenos ao lado */
 #categories {
   display: flex;
   gap: 8px;
   align-items: center;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
-/* estilo botão categoria */
 .category-btn {
   background: transparent;
-  border: 1px solid rgba(138,43,226,0.25);
+  border: 1px solid rgba(138,43,226,0.3);
   color: #bfb5ff;
   padding: 6px 10px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.9rem;
-  transition: background 0.2s, transform 0.15s;
+  transition: 0.2s;
 }
 
-.category-btn:hover { transform: translateY(-2px); }
+.category-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(138,43,226,0.15);
+}
 
 .category-btn.active {
   background: #8a2be2;
@@ -150,28 +146,23 @@ nav input#search::placeholder { color: #ccc; }
 ======================= */
 main#produtos {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
   gap: 20px;
   padding: 15px;
-  align-items: stretch; /* garante mesma altura visual */
 }
 
-/* mantenho .produto como no seu JS original */
 .produto {
   background: #1f1f1f;
   border-radius: 12px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  justify-content: space-between;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
   transition: transform 0.3s;
 }
 
-.produto:hover { transform: translateY(-5px); }
-
-/* imagem: envolvo como no seu original, mas mantendo classe */
-.produto > div[style] { position: relative; }
+.produto:hover { transform: translateY(-6px); }
 
 .produto img {
   width: 100%;
@@ -180,41 +171,37 @@ main#produtos {
   cursor: pointer;
 }
 
-/* conteúdo textual centralizado - ocupa o espaço disponível */
 .produto h3 {
   text-align: center;
   font-weight: 600;
-  font-size: 1.05rem;
-  margin: 10px 12px 6px;
-  line-height: 1.2;
-  word-break: break-word;
+  font-size: 1rem;
+  margin: 8px 10px 4px;
+  line-height: 1.3;
+  min-height: 40px;
 }
 
-/* preço centralizado */
 .produto p {
   text-align: center;
-  color: #ccc;
-  margin: 0 12px 12px;
+  font-size: 1rem;
+  color: #dcdcdc;
+  font-weight: 500;
+  margin-bottom: 10px;
 }
 
-/* botão ocupar a base do card */
 .adicionar {
   background: #8a2be2;
   color: #fff;
   border: none;
-  margin: 10px 12px;
+  margin: 8px 12px 12px;
   padding: 10px;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
   transition: 0.3s;
-  align-self: stretch; /* ocupa toda a largura interna, alinhado */
-  margin-top: auto; /* ESSENCIAL: empurra o botão para baixo, alinhando entre cards */
 }
 
 .adicionar:hover { background: #b966ff; }
 
-/* selo encomenda (mantive classe igual ao seu JS) */
 .selo-encomenda {
   position: absolute;
   top: 10px;
@@ -225,7 +212,6 @@ main#produtos {
   font-size: 0.75rem;
   padding: 4px 8px;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
   z-index: 10;
 }
 
@@ -250,17 +236,13 @@ main#produtos {
 
 #carrinho.active { transform: translateX(0); }
 
-#carrinho h2 {
-  text-align: left;
-  margin-bottom: 10px;
-  font-size: 1.2rem;
-  color: #b966ff;
+.carrinho-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #fechar-carrinho {
-  position: absolute;
-  top: 10px;
-  right: 10px;
   background: #8a2be2;
   color: #fff;
   border: none;
@@ -287,7 +269,6 @@ main#produtos {
 }
 
 .item-carrinho .info { flex: 1; }
-.item-carrinho .info p:first-child { font-weight: 600; }
 
 .item-carrinho .quantidade {
   display: flex;
@@ -304,6 +285,12 @@ main#produtos {
   cursor: pointer;
 }
 
+.scroll-area {
+  overflow-y: auto;
+  flex: 1;
+  padding-right: 6px;
+}
+
 #carrinho button#limpar,
 #carrinho button#finalizar {
   background: #8a2be2;
@@ -317,23 +304,13 @@ main#produtos {
   font-weight: 600;
 }
 
-/* área scroll dentro do carrinho */
-.scroll-area {
-  overflow-y: auto;
-  flex: 1;
-  padding-right: 6px;
-}
-
 /* =======================
-   MODAL (imagem)
+   MODAL
 ======================= */
 #modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.85);
+  inset: 0;
+  background: rgba(0,0,0,0.85);
   display: none;
   justify-content: center;
   align-items: center;
@@ -344,12 +321,12 @@ main#produtos {
 
 #modal .content {
   position: relative;
-  width: 90%;
-  max-width: 720px;
-  max-height: 80%;
   background: #111;
-  padding: 18px;
+  padding: 20px;
   border-radius: 12px;
+  max-width: 720px;
+  width: 90%;
+  max-height: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -358,35 +335,22 @@ main#produtos {
 #modal img {
   max-width: 100%;
   max-height: 70vh;
-  height: auto;
-  border-radius: 8px;
   object-fit: contain;
+  border-radius: 8px;
 }
 
-/* close + prev/next buttons */
 #modal .close {
   position: absolute;
   top: 10px;
   right: 10px;
   background: #8a2be2;
-  color: #fff;
   border: none;
-  padding: 8px;
+  color: #fff;
   border-radius: 50%;
-  cursor: pointer;
+  width: 32px;
+  height: 32px;
   font-size: 1.2rem;
-}
-
-#modal .prev,
-#modal .next {
-  background: #8a2be2;
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  margin-top: 12px;
-  border-radius: 8px;
   cursor: pointer;
-  font-size: 1.1rem;
 }
 
 /* =======================
@@ -396,21 +360,15 @@ footer {
   text-align: center;
   padding: 10px;
   font-size: 0.75rem;
-  background: #0b0b0b;
   color: #ccc;
-  margin-top: 30px;
-  clear: both;
+  margin-top: 40px;
 }
 
 /* =======================
    RESPONSIVO
 ======================= */
 @media (max-width: 768px) {
-  nav input#search { width: 140px; }
-  .search-and-cats { gap: 8px; }
-  #categories { justify-content: center; }
+  nav input#search { width: 160px; }
+  #carrinho { width: 90%; right: 5%; }
   .produto img { height: 150px; }
-  #modal .content { max-width: 92%; padding: 12px; }
-  #modal img { max-width: 320px; max-height: 60vh; }
-  #carrinho { width: 92%; right: 4%; }
 }
