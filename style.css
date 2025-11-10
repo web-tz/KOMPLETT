@@ -188,7 +188,7 @@ main#produtos {
   padding: 4px 8px;
   border-radius: 5px;
   z-index: 10;
-  display: block; /* sempre visível */
+  display: block;
 }
 
 .produto h3 {
@@ -225,25 +225,28 @@ main#produtos {
 .adicionar:hover { background: #b966ff; }
 
 /* =======================
-   CARRINHO
+   CARRINHO (com blur e sem borda mobile)
 ======================= */
 #carrinho {
   position: fixed;
   top: 0;
-  right: 0;
+  right: -350px; /* totalmente fora no desktop */
   width: 350px;
   height: 100%;
-  background: #1f1f1f;
+  background: rgba(31, 31, 31, 0.95);
+  backdrop-filter: blur(10px);
   padding: 20px;
-  transform: translateX(100%);
-  transition: transform 0.4s ease;
+  transition: right 0.4s ease;
   display: flex;
   flex-direction: column;
   z-index: 1005;
-  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.7);
+  box-shadow: -4px 0 25px rgba(0, 0, 0, 0.7);
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-#carrinho.active { transform: translateX(0); }
+#carrinho.active {
+  right: 0;
+}
 
 .carrinho-header {
   display: flex;
@@ -264,7 +267,7 @@ main#produtos {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #2a2a2a;
+  background: rgba(42, 42, 42, 0.9);
   padding: 10px;
   border-radius: 10px;
   margin-bottom: 15px;
@@ -378,9 +381,16 @@ footer {
 ======================= */
 @media (max-width: 768px) {
   nav input#search { width: 160px; }
-  #carrinho { width: 90%; right: 5%; }
 
-  /* 2 produtos por linha igual Shopee/Shein */
+  #carrinho {
+    width: 90%;
+    right: -100%; /* sem borda lateral */
+  }
+
+  #carrinho.active {
+    right: 5%; /* aparece com leve margem */
+  }
+
   main#produtos {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -388,46 +398,13 @@ footer {
     padding: 10px;
   }
 
-  .produto {
-    border-radius: 10px;
-  }
-
-  .produto img {
-    height: 165px;
-    object-fit: cover;
-  }
-
-  .produto h3 {
-    font-size: 0.9rem;
-    margin: 6px 8px 4px;
-    line-height: 1.2;
-  }
-
-  .produto .preco {
-    font-size: 0.95rem;
-    margin-bottom: 8px;
-  }
-
-  .adicionar {
-    font-size: 0.85rem;
-    padding: 8px;
-    margin: 6px 8px 10px;
-  }
-
-  #btn-carrinho {
-    font-size: 1.6rem;
-    padding: 6px 10px;
-  }
-
-  header {
-    height: 90px;
-  }
-
-  header .logo img {
-    height: 70px;
-  }
-
-  nav {
-    margin-top: 100px;
-  }
+  .produto { border-radius: 10px; }
+  .produto img { height: 165px; object-fit: cover; }
+  .produto h3 { font-size: 0.9rem; margin: 6px 8px 4px; line-height: 1.2; }
+  .produto .preco { font-size: 0.95rem; margin-bottom: 8px; }
+  .adicionar { font-size: 0.85rem; padding: 8px; margin: 6px 8px 10px; }
+  #btn-carrinho { font-size: 1.6rem; padding: 6px 10px; }
+  header { height: 90px; }
+  header .logo img { height: 70px; }
+  nav { margin-top: 100px; }
 }
