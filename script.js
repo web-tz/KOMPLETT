@@ -29,8 +29,42 @@ const search = document.getElementById('search');
 const carrinhoDiv = document.getElementById('carrinho');
 const itensCarrinho = document.getElementById('itens-carrinho');
 const badge = document.getElementById('badge');
+const categoriesDiv = document.getElementById('categories');
+
 let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 let imgIndex = 0, imgAtual = [];
+let selectedCategory = 'Todos';
+
+// ===== RENDER DE CATEGORIAS =====
+function renderCategorias() {
+  const categorias = ['Todos', ...Array.from(new Set(produtos.map(p => p.categoria)))];
+  categoriesDiv.innerHTML = '';
+  categorias.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'category-btn';
+    if (cat === selectedCategory) btn.classList.add('active');
+    btn.textContent = cat;
+    btn.onclick = () => {
+      selectedCategory = cat;
+      // atualiza visual
+      const atuais = categoriesDiv.querySelectorAll('.category-btn');
+      atuais.forEach(b => b.classList.toggle('active', b.textContent === cat));
+      aplicarFiltro();
+    };
+    categoriesDiv.appendChild(btn);
+  });
+}
+
+// ===== FILTRO COMBINADO (BUSCA + CATEGORIA) =====
+function aplicarFiltro() {
+  const termo = (search.value || '').toLowerCase();
+  const filtrados = produtos.filter(p => {
+    const condTermo = p.nome.toLowerCase().includes(termo);
+    const condCat = selectedCategory === 'Todos' ? true : p.categoria === selectedCategory;
+    return condTermo && condCat;
+  });
+  renderProdutos(filtrados);
+}
 
 // ===== RENDERIZAR PRODUTOS =====
 function renderProdutos(lista) {
@@ -38,8 +72,10 @@ function renderProdutos(lista) {
   lista.forEach(p => {
     const card = document.createElement('div');
     card.className = 'produto';
+
     const selo = p.qtd === 0 ? '<span class="selo-encomenda">SOB ENCOMENDA</span>' : '';
     const preco = `<p>R$ ${p.preco.toFixed(2).replace('.', ',')}</p>`;
+
     card.innerHTML = `
       <div style="position:relative;">
         ${selo}
@@ -49,18 +85,20 @@ function renderProdutos(lista) {
       ${preco}
       <button class="adicionar">Adicionar ao Carrinho</button>
     `;
-    card.querySelector('img').addEventListener('click', () => abrirModal(p.imagens));
+
+    // abrir modal ao clicar
+    const imgEl = card.querySelector('img');
+    imgEl.addEventListener('click', () => abrirModal(p.imagens));
+    // adicionar ao carrinho
     card.querySelector('.adicionar').addEventListener('click', () => addCarrinho(p));
+
     container.appendChild(card);
   });
 }
-renderProdutos(produtos);
 
 // ===== BUSCA =====
-search.addEventListener('input', e => {
-  const termo = e.target.value.toLowerCase();
-  const filtrados = produtos.filter(p => p.nome.toLowerCase().includes(termo));
-  renderProdutos(filtrados);
+search.addEventListener('input', () => {
+  aplicarFiltro();
 });
 
 // ===== MODAL =====
@@ -70,15 +108,29 @@ function abrirModal(imgs) {
   modalImg.src = imgAtual[0];
   modal.style.display = 'flex';
 }
-function fecharModal() { modal.style.display = 'none'; }
+
+function fecharModal() {
+  modal.style.display = 'none';
+}
+
 function trocarImg(direcao) {
   imgIndex = (imgIndex + direcao + imgAtual.length) % imgAtual.length;
   modalImg.src = imgAtual[imgIndex];
 }
+
 modal.querySelector('.close').onclick = fecharModal;
 btnPrev.onclick = () => trocarImg(-1);
 btnNext.onclick = () => trocarImg(1);
 modal.addEventListener('click', e => { if (e.target === modal) fecharModal(); });
+
+// ===== TOQUE/ARRASTE NO MODAL =====
+let startX = 0;
+modalImg.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+modalImg.addEventListener('touchend', e => {
+  const endX = e.changedTouches[0].clientX;
+  if (startX - endX > 50) trocarImg(1);
+  else if (endX - startX > 50) trocarImg(-1);
+});
 
 // ===== CARRINHO =====
 function addCarrinho(produto) {
@@ -132,22 +184,28 @@ function atualizarCarrinho() {
 atualizarCarrinho();
 
 // abrir carrinho
-document.getElementById('btn-carrinho').onclick = () => {
+document.getElementById('btn-carrinho').addEventListener('click',()=>{
   carrinhoDiv.classList.add('active');
-};
+});
 
 // limpar
-document.getElementById('limpar').onclick = () => {
+document.getElementById('limpar').onclick = ()=>{
   carrinho = [];
   salvarCarrinho();
   atualizarCarrinho();
 };
 
-// finalizar
-document.getElementById('finalizar').onclick = () => {
-  if (carrinho.length === 0) return alert('Carrinho vazio!');
-  const msg = carrinho.map(i => `${i.nome} x${i.qtd} - R$${i.preco}`).join('%0A');
-  const total = carrinho.reduce((s,i)=>s+i.preco*i.qtd,0);
-  const texto = `Olá! Gostaria de finalizar meu pedido:%0A${msg}%0A%0ATotal: R$${total.toFixed(2).replace('.', ',')}`;
-  window.open(`https://wa.me/5544999999999?text=${texto}`);
+// finalizar via WhatsApp (preservei a lógica, só deixei formato ok)
+document.getElementById('finalizar').onclick = ()=>{
+  if(carrinho.length===0) return alert('Carrinho vazio!');
+  let msg = '*Pedido KOMPLETT*%0A%0A';
+  carrinho.forEach(i=> msg += `${encodeURIComponent(i.nome)} (x${i.qtd}) - R$ ${(i.preco*i.qtd).toFixed(2)}%0A`);
+  const total = carrinho.reduce((t,i)=>t+i.preco*i.qtd,0);
+  msg += `%0A*Total:* R$ ${total.toFixed(2).replace('.', ',')}`;
+  const url = `https://wa.me/5571999999999?text=${msg}`;
+  window.open(url,'_blank');
 };
+
+// ===== Inicialização =====
+renderCategorias();
+aplicarFiltro();
