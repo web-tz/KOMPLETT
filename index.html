@@ -29,30 +29,32 @@
 
   <main id="produtos"></main>
 
+  <!-- Carrinho lateral -->
   <div id="carrinho">
-    <button id="fechar-carrinho">✖</button>
-    <h2>Carrinho</h2>
-    <div id="itens-carrinho"></div>
-    <button id="limpar">Limpar Carrinho</button>
-    <button id="finalizar">Finalizar no WhatsApp</button>
+    <div class="carrinho-header">
+      <h2>Carrinho</h2>
+      <button id="fechar-carrinho">✖</button>
+    </div>
+    <div id="itens-carrinho" class="scroll-area"></div>
+    <div class="carrinho-footer">
+      <button id="limpar">Limpar Carrinho</button>
+      <button id="finalizar">Finalizar no WhatsApp</button>
+    </div>
   </div>
 
+  <!-- Modal de imagens -->
   <div id="modal">
     <div class="content">
       <button class="close">&times;</button>
-      <button class="prev">&#10094;</button>
       <img src="" alt="Produto">
-      <button class="next">&#10095;</button>
+      <div class="controls">
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
+      </div>
     </div>
   </div>
 
   <footer>© 2025 KOMPLETT - Todos os direitos reservados</footer>
-
   <script src="script.js"></script>
-  <script>
-    document.getElementById('fechar-carrinho').addEventListener('click', () => {
-      document.getElementById('carrinho').classList.remove('active');
-    });
-  </script>
 </body>
 </html>
