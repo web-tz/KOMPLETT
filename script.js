@@ -46,7 +46,6 @@ function renderCategorias() {
     btn.textContent = cat;
     btn.onclick = () => {
       selectedCategory = cat;
-      // atualiza visual
       const atuais = categoriesDiv.querySelectorAll('.category-btn');
       atuais.forEach(b => b.classList.toggle('active', b.textContent === cat));
       aplicarFiltro();
@@ -86,10 +85,8 @@ function renderProdutos(lista) {
       <button class="adicionar">Adicionar ao Carrinho</button>
     `;
 
-    // abrir modal ao clicar
     const imgEl = card.querySelector('img');
     imgEl.addEventListener('click', () => abrirModal(p.imagens));
-    // adicionar ao carrinho
     card.querySelector('.adicionar').addEventListener('click', () => addCarrinho(p));
 
     container.appendChild(card);
@@ -97,20 +94,20 @@ function renderProdutos(lista) {
 }
 
 // ===== BUSCA =====
-search.addEventListener('input', () => {
-  aplicarFiltro();
-});
+search.addEventListener('input', () => { aplicarFiltro(); });
 
 // ===== MODAL =====
 function abrirModal(imgs) {
   imgAtual = imgs;
   imgIndex = 0;
   modalImg.src = imgAtual[0];
-  modal.style.display = 'flex';
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden','false');
 }
 
 function fecharModal() {
-  modal.style.display = 'none';
+  modal.classList.remove('active');
+  modal.setAttribute('aria-hidden','true');
 }
 
 function trocarImg(direcao) {
@@ -123,7 +120,7 @@ btnPrev.onclick = () => trocarImg(-1);
 btnNext.onclick = () => trocarImg(1);
 modal.addEventListener('click', e => { if (e.target === modal) fecharModal(); });
 
-// ===== TOQUE/ARRASTE NO MODAL =====
+// toque/arraste
 let startX = 0;
 modalImg.addEventListener('touchstart', e => startX = e.touches[0].clientX);
 modalImg.addEventListener('touchend', e => {
@@ -154,9 +151,11 @@ function atualizarCarrinho() {
     div.className = 'item-carrinho';
     div.innerHTML = `
       <img src="${item.imagens[0]}" alt="${item.nome}">
-      <span>${item.nome}</span>
-      <span>R$ ${item.preco.toFixed(2).replace('.', ',')}</span>
-      <div class="qtd">
+      <div class="info">
+        <p>${item.nome}</p>
+        <p>R$ ${item.preco.toFixed(2).replace('.', ',')}</p>
+      </div>
+      <div class="quantidade">
         <button class="menos">-</button>
         <span>${item.qtd}</span>
         <button class="mais">+</button>
@@ -186,6 +185,7 @@ atualizarCarrinho();
 // abrir carrinho
 document.getElementById('btn-carrinho').addEventListener('click',()=>{
   carrinhoDiv.classList.add('active');
+  carrinhoDiv.setAttribute('aria-hidden','false');
 });
 
 // limpar
@@ -195,7 +195,7 @@ document.getElementById('limpar').onclick = ()=>{
   atualizarCarrinho();
 };
 
-// finalizar via WhatsApp (preservei a lógica, só deixei formato ok)
+// finalizar via WhatsApp
 document.getElementById('finalizar').onclick = ()=>{
   if(carrinho.length===0) return alert('Carrinho vazio!');
   let msg = '*Pedido KOMPLETT*%0A%0A';
