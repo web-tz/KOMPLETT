@@ -225,33 +225,47 @@ main#produtos {
 .adicionar:hover { background: #b966ff; }
 
 /* =======================
-   CARRINHO (com blur e sem borda mobile)
+   CARRINHO (corrigido: transform-only, sem borda)
 ======================= */
+/* recomendações:
+   - O seu JS já adiciona/removes a classe "active" em #carrinho.
+   - Aqui usamos somente transform para mover o painel (translateX),
+     garantindo que não reste 1px visível na lateral.
+*/
 #carrinho {
   position: fixed;
   top: 0;
-  right: -350px; /* totalmente fora no desktop */
+  right: 0;                /* fixa no canto direito do viewport */
   width: 350px;
   height: 100%;
   background: rgba(31, 31, 31, 0.95);
   backdrop-filter: blur(10px);
   padding: 20px;
-  transition: right 0.4s ease;
+  transform: translateX(100%); /* colocado totalmente fora da tela */
+  transition: transform 0.36s cubic-bezier(.22,.9,.36,1), box-shadow 0.2s;
   display: flex;
   flex-direction: column;
   z-index: 1005;
-  box-shadow: -4px 0 25px rgba(0, 0, 0, 0.7);
-  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: -8px 0 30px rgba(0, 0, 0, 0.65);
+  border-left: 1px solid rgba(255, 255, 255, 0.03);
+  will-change: transform;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  pointer-events: none; /* evita interações quando fechado */
 }
 
+/* Quando o carrinho abre: apenas troca o transform e ativa pointer-events */
 #carrinho.active {
-  right: 0;
+  transform: translateX(0);
+  pointer-events: auto;
 }
 
+/* Cabeçalho do carrinho */
 .carrinho-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 15px;
 }
 
 #fechar-carrinho {
@@ -263,6 +277,7 @@ main#produtos {
   cursor: pointer;
 }
 
+/* Itens do carrinho */
 .item-carrinho {
   display: flex;
   align-items: center;
@@ -297,12 +312,15 @@ main#produtos {
   cursor: pointer;
 }
 
+/* Área rolável interna */
 .scroll-area {
   overflow-y: auto;
   flex: 1;
   padding-right: 6px;
+  -webkit-overflow-scrolling: touch;
 }
 
+/* Botões finais */
 #carrinho button#limpar,
 #carrinho button#finalizar {
   background: #8a2be2;
@@ -382,15 +400,18 @@ footer {
 @media (max-width: 768px) {
   nav input#search { width: 160px; }
 
+  /* mobile: carrinho totalmente fora por transform, ocupa 90% quando aberto */
   #carrinho {
     width: 90%;
-    right: -100%; /* sem borda lateral */
+    transform: translateX(110%);
+    right: 0;
   }
 
   #carrinho.active {
-    right: 5%; /* aparece com leve margem */
+    transform: translateX(0);
   }
 
+  /* 2 colunas no celular */
   main#produtos {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
