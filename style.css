@@ -188,7 +188,7 @@ main#produtos {
   padding: 4px 8px;
   border-radius: 5px;
   z-index: 10;
-  display: block; /* <-- sempre visível */
+  display: block; /* sempre visível */
 }
 
 .produto h3 {
@@ -206,7 +206,7 @@ main#produtos {
   color: #dcdcdc;
   font-weight: 500;
   margin-bottom: 10px;
-  min-height: 25px; /* garante alinhamento */
+  min-height: 25px;
 }
 
 .adicionar {
@@ -219,7 +219,7 @@ main#produtos {
   cursor: pointer;
   font-weight: 600;
   transition: 0.3s;
-  margin-top: auto; /* força alinhamento dos botões */
+  margin-top: auto;
 }
 
 .adicionar:hover { background: #b966ff; }
@@ -374,20 +374,60 @@ footer {
 }
 
 /* =======================
-   RESPONSIVO
+   RESPONSIVO (Shopee Style)
 ======================= */
 @media (max-width: 768px) {
   nav input#search { width: 160px; }
   #carrinho { width: 90%; right: 5%; }
-  .produto img { height: 150px; }
 
-  /* 2 colunas no celular */
+  /* 2 produtos por linha igual Shopee/Shein */
   main#produtos {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+    gap: 12px;
+    padding: 10px;
   }
 
-  .produto h3 { font-size: 0.9rem; }
-  .produto .preco { font-size: 0.95rem; }
-  .adicionar { font-size: 0.85rem; padding: 8px; }
+  .produto {
+    border-radius: 10px;
+  }
+
+  .produto img {
+    height: 165px;
+    object-fit: cover;
+  }
+
+  .produto h3 {
+    font-size: 0.9rem;
+    margin: 6px 8px 4px;
+    line-height: 1.2;
+  }
+
+  .produto .preco {
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+  }
+
+  .adicionar {
+    font-size: 0.85rem;
+    padding: 8px;
+    margin: 6px 8px 10px;
+  }
+
+  #btn-carrinho {
+    font-size: 1.6rem;
+    padding: 6px 10px;
+  }
+
+  header {
+    height: 90px;
+  }
+
+  header .logo img {
+    height: 70px;
+  }
+
+  nav {
+    margin-top: 100px;
+  }
 }
