@@ -208,10 +208,11 @@ document.getElementById('finalizar').onclick = ()=>{
   carrinho.forEach(i=> msg += `${encodeURIComponent(i.nome)} (x${i.qtd}) - R$ ${(i.preco*i.qtd).toFixed(2)}%0A`);
   const total = carrinho.reduce((t,i)=>t+i.preco*i.qtd,0);
   msg += `%0A*Total:* R$ ${total.toFixed(2).replace('.', ',')}`;
-  const url = `https://wa.me/5571999999999?text=${msg}`;
+  const url = `https://wa.me/5577981336827?text=${msg}`;
   window.open(url,'_blank');
 };
 
 // ===== Inicialização =====
 renderCategorias();
 aplicarFiltro();
+
