@@ -225,23 +225,18 @@ main#produtos {
 .adicionar:hover { background: #b966ff; }
 
 /* =======================
-   CARRINHO (corrigido: transform-only, sem borda)
+   CARRINHO (corrigido)
 ======================= */
-/* recomendações:
-   - O seu JS já adiciona/removes a classe "active" em #carrinho.
-   - Aqui usamos somente transform para mover o painel (translateX),
-     garantindo que não reste 1px visível na lateral.
-*/
 #carrinho {
   position: fixed;
   top: 0;
-  right: 0;                /* fixa no canto direito do viewport */
+  right: 0;
   width: 350px;
   height: 100%;
   background: rgba(31, 31, 31, 0.95);
   backdrop-filter: blur(10px);
   padding: 20px;
-  transform: translateX(100%); /* colocado totalmente fora da tela */
+  transform: translateX(100%);
   transition: transform 0.36s cubic-bezier(.22,.9,.36,1), box-shadow 0.2s;
   display: flex;
   flex-direction: column;
@@ -251,16 +246,14 @@ main#produtos {
   will-change: transform;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
-  pointer-events: none; /* evita interações quando fechado */
+  pointer-events: none;
 }
 
-/* Quando o carrinho abre: apenas troca o transform e ativa pointer-events */
 #carrinho.active {
   transform: translateX(0);
   pointer-events: auto;
 }
 
-/* Cabeçalho do carrinho */
 .carrinho-header {
   display: flex;
   justify-content: space-between;
@@ -277,7 +270,6 @@ main#produtos {
   cursor: pointer;
 }
 
-/* Itens do carrinho */
 .item-carrinho {
   display: flex;
   align-items: center;
@@ -312,7 +304,6 @@ main#produtos {
   cursor: pointer;
 }
 
-/* Área rolável interna */
 .scroll-area {
   overflow-y: auto;
   flex: 1;
@@ -320,7 +311,6 @@ main#produtos {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Botões finais */
 #carrinho button#limpar,
 #carrinho button#finalizar {
   background: #8a2be2;
@@ -395,12 +385,22 @@ footer {
 }
 
 /* =======================
+   ALINHAR PREÇOS (fixo)
+======================= */
+.produto h3 {
+  min-height: 48px; /* altura fixa */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: center;
+}
+
+/* =======================
    RESPONSIVO (Shopee Style)
 ======================= */
 @media (max-width: 768px) {
   nav input#search { width: 160px; }
 
-  /* mobile: carrinho totalmente fora por transform, ocupa 90% quando aberto */
   #carrinho {
     width: 90%;
     transform: translateX(110%);
@@ -411,7 +411,6 @@ footer {
     transform: translateX(0);
   }
 
-  /* 2 colunas no celular */
   main#produtos {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
