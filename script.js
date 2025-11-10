@@ -31,7 +31,6 @@ const itensCarrinho = document.getElementById('itens-carrinho');
 const badge = document.getElementById('badge');
 const categoriesDiv = document.getElementById('categories');
 const fecharCarrinhoBtn = document.getElementById('fechar-carrinho');
-
 let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 let imgIndex = 0, imgAtual = [];
 let selectedCategory = 'Todos';
@@ -72,10 +71,8 @@ function renderProdutos(lista) {
   lista.forEach(p => {
     const card = document.createElement('div');
     card.className = 'produto';
-
     const selo = p.qtd === 0 ? '<span class="selo-encomenda">SOB ENCOMENDA</span>' : '';
     const preco = `<p class="preco">R$ ${p.preco.toFixed(2).replace('.', ',')}</p>`;
-
     card.innerHTML = `
       <div class="img-container">
         ${selo}
@@ -85,7 +82,6 @@ function renderProdutos(lista) {
       ${preco}
       <button class="adicionar">Adicionar ao Carrinho</button>
     `;
-
     const imgEl = card.querySelector('img');
     imgEl.addEventListener('click', () => abrirModal(p.imagens));
     card.querySelector('.adicionar').addEventListener('click', () => addCarrinho(p));
@@ -101,23 +97,18 @@ function abrirModal(imgs) {
   modal.classList.add('active');
   modal.setAttribute('aria-hidden','false');
 }
-
 function fecharModal() {
   modal.classList.remove('active');
   modal.setAttribute('aria-hidden','true');
 }
-
 function trocarImg(direcao) {
   imgIndex = (imgIndex + direcao + imgAtual.length) % imgAtual.length;
   modalImg.src = imgAtual[imgIndex];
 }
-
 modal.querySelector('.close').onclick = fecharModal;
 btnPrev.onclick = () => trocarImg(-1);
 btnNext.onclick = () => trocarImg(1);
 modal.addEventListener('click', e => { if (e.target === modal) fecharModal(); });
-
-// toque/arraste no celular
 let startX = 0;
 modalImg.addEventListener('touchstart', e => startX = e.touches[0].clientX);
 modalImg.addEventListener('touchend', e => {
@@ -134,11 +125,9 @@ function addCarrinho(produto) {
   salvarCarrinho();
   atualizarCarrinho();
 }
-
 function salvarCarrinho() {
   localStorage.setItem('carrinho', JSON.stringify(carrinho));
 }
-
 function atualizarCarrinho() {
   itensCarrinho.innerHTML = '';
   let total = 0;
@@ -171,7 +160,6 @@ function atualizarCarrinho() {
     };
     itensCarrinho.appendChild(div);
   });
-
   const totalDiv = document.createElement('div');
   totalDiv.className = 'total';
   totalDiv.innerHTML = `<h3>Total: R$ ${total.toFixed(2).replace('.', ',')}</h3>`;
@@ -185,23 +173,17 @@ document.getElementById('btn-carrinho').addEventListener('click',()=>{
   carrinhoDiv.classList.add('active');
   carrinhoDiv.setAttribute('aria-hidden','false');
 });
-
-// 🧩 CORREÇÃO AQUI — FECHAR CARRINHO FUNCIONANDO
 if (fecharCarrinhoBtn) {
   fecharCarrinhoBtn.addEventListener('click', ()=>{
     carrinhoDiv.classList.remove('active');
     carrinhoDiv.setAttribute('aria-hidden','true');
   });
 }
-
-// limpar carrinho
 document.getElementById('limpar').onclick = ()=>{
   carrinho = [];
   salvarCarrinho();
   atualizarCarrinho();
 };
-
-// finalizar via WhatsApp
 document.getElementById('finalizar').onclick = ()=>{
   if(carrinho.length===0) return alert('Carrinho vazio!');
   let msg = '*Pedido KOMPLETT*%0A%0A';
@@ -216,3 +198,5 @@ document.getElementById('finalizar').onclick = ()=>{
 renderCategorias();
 aplicarFiltro();
 
+// ===== PESQUISA =====
+search.addEventListener('input', aplicarFiltro);
