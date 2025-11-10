@@ -36,6 +36,12 @@ header {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
 }
 
+header .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 header .logo img {
   height: 100px;
   cursor: pointer;
@@ -55,11 +61,13 @@ header .logo img:hover {
   background: #8a2be2;
   border: none;
   cursor: pointer;
+  font-size: 1.8rem;
   color: #fff;
   padding: 8px 12px;
   border-radius: 10px;
   transition: all 0.3s ease;
   z-index: 1004;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 #btn-carrinho:hover {
@@ -80,16 +88,29 @@ header .logo img:hover {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 }
 
 /* =======================
-   NAV
+   NAV (SEARCH + CATEGORIES)
 ======================= */
 nav {
   margin-top: 130px;
   display: flex;
   justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
   padding: 10px 15px;
+}
+
+.search-and-cats {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  max-width: 1100px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 nav input#search {
@@ -98,7 +119,39 @@ nav input#search {
   border: 2px solid #8a2be2;
   background: #1f1f1f;
   color: #fff;
-  width: 200px;
+  width: 260px;
+}
+
+nav input#search::placeholder {
+  color: #ccc;
+}
+
+/* categorias como botões pequenos ao lado */
+#categories {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* estilo botão categoria */
+.category-btn {
+  background: transparent;
+  border: 1px solid rgba(138,43,226,0.25);
+  color: #bfb5ff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.category-btn:hover { transform: translateY(-2px); }
+
+.category-btn.active {
+  background: #8a2be2;
+  color: #fff;
+  border-color: #8a2be2;
 }
 
 /* =======================
@@ -109,19 +162,29 @@ main#produtos {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
   padding: 15px;
+  align-items: stretch; /* garante mesma altura visual */
 }
 
+/* mantenho .produto como no seu JS original */
 .produto {
   background: #1f1f1f;
   border-radius: 12px;
   overflow: hidden;
-  padding-bottom: 10px;
-  text-align: center;
+  /* importante: layout flex pra empurrar o botão pro final */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
   transition: transform 0.3s;
 }
 
 .produto:hover {
   transform: translateY(-5px);
+}
+
+/* imagem: envolvo como no seu original, mas mantendo classe */
+.produto > div[style] {
+  position: relative; /* mantém selo posicionado */
 }
 
 .produto img {
@@ -131,34 +194,62 @@ main#produtos {
   cursor: pointer;
 }
 
+/* conteúdo textual centralizado - ocupa o espaço disponível */
+.produto h3 {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin: 10px 12px 6px;
+  line-height: 1.2;
+  /* permite texto multi-linha sem estourar layout */
+  word-break: break-word;
+}
+
+/* preço centralizado */
+.produto p {
+  text-align: center;
+  color: #ccc;
+  margin: 0 12px 12px;
+}
+
+/* botão ocupar a base do card */
+.adicionar {
+  background: #8a2be2;
+  color: #fff;
+  border: none;
+  margin: 10px 12px;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+  align-self: stretch; /* ocupa toda a largura interna, alinhado */
+  margin-top: auto; /* ESSENCIAL: empurra o botão para baixo, alinhando entre cards */
+}
+
+.adicionar:hover {
+  background: #b966ff;
+}
+
+/* selo encomenda (mantive classe igual ao seu JS) */
 .selo-encomenda {
   position: absolute;
   top: 10px;
   left: 10px;
   background: #ff0000;
   color: #fff;
-  font-size: 0.7rem;
+  font-weight: 700;
+  font-size: 0.75rem;
   padding: 4px 8px;
-  border-radius: 4px;
-}
-
-button.adicionar {
-  background: #8a2be2;
-  border: none;
-  color: white;
-  padding: 8px;
-  border-radius: 8px;
-  cursor: pointer;
-  width: 90%;
-}
-
-button.adicionar:hover {
-  background: #b966ff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  z-index: 10;
 }
 
 /* =======================
    CARRINHO
 ======================= */
+/* mantive seu estilo original para o carrinho (não alterei) */
 #carrinho {
   position: fixed;
   top: 0;
@@ -172,6 +263,7 @@ button.adicionar:hover {
   display: flex;
   flex-direction: column;
   z-index: 1005;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.7);
 }
 
 #carrinho.active {
@@ -194,20 +286,21 @@ button.adicionar:hover {
   z-index: 2000;
 }
 
-#modal img {
-  max-width: 100%;
-  max-height: 100%;
-  border-radius: 10px;
-}
-
 /* =======================
-   FOOTER
+   RESPONSIVO
 ======================= */
-footer {
-  text-align: center;
-  padding: 10px;
-  font-size: 0.75rem;
-  background: #0b0b0b;
-  color: #ccc;
-  margin-top: 30px;
+@media (max-width: 768px) {
+  nav input#search {
+    width: 140px;
+  }
+  .search-and-cats {
+    gap: 8px;
+  }
+  #categories {
+    justify-content: center;
+  }
+
+  .produto img {
+    height: 150px;
+  }
 }
