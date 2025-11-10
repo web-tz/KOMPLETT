@@ -180,15 +180,19 @@ function atualizarCarrinho() {
 }
 atualizarCarrinho();
 
-// abrir e fechar carrinho
+// === ABRIR E FECHAR CARRINHO ===
 document.getElementById('btn-carrinho').addEventListener('click',()=>{
   carrinhoDiv.classList.add('active');
   carrinhoDiv.setAttribute('aria-hidden','false');
 });
-fecharCarrinhoBtn.addEventListener('click', ()=>{
-  carrinhoDiv.classList.remove('active');
-  carrinhoDiv.setAttribute('aria-hidden','true');
-});
+
+// 🧩 CORREÇÃO AQUI — FECHAR CARRINHO FUNCIONANDO
+if (fecharCarrinhoBtn) {
+  fecharCarrinhoBtn.addEventListener('click', ()=>{
+    carrinhoDiv.classList.remove('active');
+    carrinhoDiv.setAttribute('aria-hidden','true');
+  });
+}
 
 // limpar carrinho
 document.getElementById('limpar').onclick = ()=>{
