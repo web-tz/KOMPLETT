@@ -14,9 +14,7 @@ body {
   overflow-x: hidden;
 }
 
-img {
-  display: block;
-}
+img { display: block; }
 
 /* =======================
    HEADER
@@ -48,9 +46,7 @@ header .logo img {
   transition: transform 0.3s ease;
 }
 
-header .logo img:hover {
-  transform: scale(1.3);
-}
+header .logo img:hover { transform: scale(1.3); }
 
 /* =======================
    BOTÃO CARRINHO
@@ -70,12 +66,9 @@ header .logo img:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
-#btn-carrinho:hover {
-  background: #b966ff;
-  transform: scale(1.1);
-}
+#btn-carrinho:hover { background: #b966ff; transform: scale(1.1); }
 
-#btn-carrinho span {
+#badge {
   position: absolute;
   top: -8px;
   right: -8px;
@@ -122,9 +115,7 @@ nav input#search {
   width: 260px;
 }
 
-nav input#search::placeholder {
-  color: #ccc;
-}
+nav input#search::placeholder { color: #ccc; }
 
 /* categorias como botões pequenos ao lado */
 #categories {
@@ -170,7 +161,6 @@ main#produtos {
   background: #1f1f1f;
   border-radius: 12px;
   overflow: hidden;
-  /* importante: layout flex pra empurrar o botão pro final */
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -178,14 +168,10 @@ main#produtos {
   transition: transform 0.3s;
 }
 
-.produto:hover {
-  transform: translateY(-5px);
-}
+.produto:hover { transform: translateY(-5px); }
 
 /* imagem: envolvo como no seu original, mas mantendo classe */
-.produto > div[style] {
-  position: relative; /* mantém selo posicionado */
-}
+.produto > div[style] { position: relative; }
 
 .produto img {
   width: 100%;
@@ -201,7 +187,6 @@ main#produtos {
   font-size: 1.05rem;
   margin: 10px 12px 6px;
   line-height: 1.2;
-  /* permite texto multi-linha sem estourar layout */
   word-break: break-word;
 }
 
@@ -227,9 +212,7 @@ main#produtos {
   margin-top: auto; /* ESSENCIAL: empurra o botão para baixo, alinhando entre cards */
 }
 
-.adicionar:hover {
-  background: #b966ff;
-}
+.adicionar:hover { background: #b966ff; }
 
 /* selo encomenda (mantive classe igual ao seu JS) */
 .selo-encomenda {
@@ -249,7 +232,6 @@ main#produtos {
 /* =======================
    CARRINHO
 ======================= */
-/* mantive seu estilo original para o carrinho (não alterei) */
 #carrinho {
   position: fixed;
   top: 0;
@@ -266,12 +248,84 @@ main#produtos {
   box-shadow: -4px 0 20px rgba(0, 0, 0, 0.7);
 }
 
-#carrinho.active {
-  transform: translateX(0);
+#carrinho.active { transform: translateX(0); }
+
+#carrinho h2 {
+  text-align: left;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #b966ff;
+}
+
+#fechar-carrinho {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #8a2be2;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.item-carrinho {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #2a2a2a;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.item-carrinho img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.item-carrinho .info { flex: 1; }
+.item-carrinho .info p:first-child { font-weight: 600; }
+
+.item-carrinho .quantidade {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.item-carrinho .quantidade button {
+  background: #8a2be2;
+  color: #fff;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#carrinho button#limpar,
+#carrinho button#finalizar {
+  background: #8a2be2;
+  color: #fff;
+  margin-top: 8px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+}
+
+/* área scroll dentro do carrinho */
+.scroll-area {
+  overflow-y: auto;
+  flex: 1;
+  padding-right: 6px;
 }
 
 /* =======================
-   MODAL
+   MODAL (imagem)
 ======================= */
 #modal {
   position: fixed;
@@ -279,28 +333,84 @@ main#produtos {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(0, 0, 0, 0.85);
   display: none;
   justify-content: center;
   align-items: center;
   z-index: 2000;
 }
 
+#modal.active { display: flex; }
+
+#modal .content {
+  position: relative;
+  width: 90%;
+  max-width: 720px;
+  max-height: 80%;
+  background: #111;
+  padding: 18px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#modal img {
+  max-width: 100%;
+  max-height: 70vh;
+  height: auto;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+/* close + prev/next buttons */
+#modal .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #8a2be2;
+  color: #fff;
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+#modal .prev,
+#modal .next {
+  background: #8a2be2;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  margin-top: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+/* =======================
+   FOOTER
+======================= */
+footer {
+  text-align: center;
+  padding: 10px;
+  font-size: 0.75rem;
+  background: #0b0b0b;
+  color: #ccc;
+  margin-top: 30px;
+  clear: both;
+}
+
 /* =======================
    RESPONSIVO
 ======================= */
 @media (max-width: 768px) {
-  nav input#search {
-    width: 140px;
-  }
-  .search-and-cats {
-    gap: 8px;
-  }
-  #categories {
-    justify-content: center;
-  }
-
-  .produto img {
-    height: 150px;
-  }
+  nav input#search { width: 140px; }
+  .search-and-cats { gap: 8px; }
+  #categories { justify-content: center; }
+  .produto img { height: 150px; }
+  #modal .content { max-width: 92%; padding: 12px; }
+  #modal img { max-width: 320px; max-height: 60vh; }
+  #carrinho { width: 92%; right: 4%; }
 }
