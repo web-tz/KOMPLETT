@@ -38,10 +38,8 @@ function renderProdutos(lista) {
   lista.forEach(p => {
     const card = document.createElement('div');
     card.className = 'produto';
-    
     const selo = p.qtd === 0 ? '<span class="selo-encomenda">SOB ENCOMENDA</span>' : '';
     const preco = `<p>R$ ${p.preco.toFixed(2).replace('.', ',')}</p>`;
-    
     card.innerHTML = `
       <div style="position:relative;">
         ${selo}
@@ -51,12 +49,8 @@ function renderProdutos(lista) {
       ${preco}
       <button class="adicionar">Adicionar ao Carrinho</button>
     `;
-    
-    // abrir modal ao clicar
     card.querySelector('img').addEventListener('click', () => abrirModal(p.imagens));
-    // adicionar ao carrinho
     card.querySelector('.adicionar').addEventListener('click', () => addCarrinho(p));
-
     container.appendChild(card);
   });
 }
@@ -76,29 +70,15 @@ function abrirModal(imgs) {
   modalImg.src = imgAtual[0];
   modal.style.display = 'flex';
 }
-
-function fecharModal() {
-  modal.style.display = 'none';
-}
-
+function fecharModal() { modal.style.display = 'none'; }
 function trocarImg(direcao) {
   imgIndex = (imgIndex + direcao + imgAtual.length) % imgAtual.length;
   modalImg.src = imgAtual[imgIndex];
 }
-
 modal.querySelector('.close').onclick = fecharModal;
 btnPrev.onclick = () => trocarImg(-1);
 btnNext.onclick = () => trocarImg(1);
 modal.addEventListener('click', e => { if (e.target === modal) fecharModal(); });
-
-// ===== TOQUE/ARRASTE NO MODAL =====
-let startX = 0;
-modalImg.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-modalImg.addEventListener('touchend', e => {
-  const endX = e.changedTouches[0].clientX;
-  if (startX - endX > 50) trocarImg(1);
-  else if (endX - startX > 50) trocarImg(-1);
-});
 
 // ===== CARRINHO =====
 function addCarrinho(produto) {
@@ -152,24 +132,22 @@ function atualizarCarrinho() {
 atualizarCarrinho();
 
 // abrir carrinho
-document.getElementById('btn-carrinho').addEventListener('click',()=>{
+document.getElementById('btn-carrinho').onclick = () => {
   carrinhoDiv.classList.add('active');
-});
+};
 
 // limpar
-document.getElementById('limpar').onclick = ()=>{
+document.getElementById('limpar').onclick = () => {
   carrinho = [];
   salvarCarrinho();
   atualizarCarrinho();
 };
 
-// finalizar via WhatsApp
-document.getElementById('finalizar').onclick = ()=>{
-  if(carrinho.length===0) return alert('Carrinho vazio!');
-  let msg = '*Pedido KOMPLETT*\n\n';
-  carrinho.forEach(i=> msg += `${i.nome} (x${i.qtd}) - R$ ${(i.preco*i.qtd).toFixed(2)}\n`);
-  const total = carrinho.reduce((t,i)=>t+i.preco*i.qtd,0);
-  msg += `\n*Total:* R$ ${total.toFixed(2).replace('.', ',')}`;
-  const url = `https://wa.me/5571999999999?text=${encodeURIComponent(msg)}`;
-  window.open(url,'_blank');
+// finalizar
+document.getElementById('finalizar').onclick = () => {
+  if (carrinho.length === 0) return alert('Carrinho vazio!');
+  const msg = carrinho.map(i => `${i.nome} x${i.qtd} - R$${i.preco}`).join('%0A');
+  const total = carrinho.reduce((s,i)=>s+i.preco*i.qtd,0);
+  const texto = `Olá! Gostaria de finalizar meu pedido:%0A${msg}%0A%0ATotal: R$${total.toFixed(2).replace('.', ',')}`;
+  window.open(`https://wa.me/5544999999999?text=${texto}`);
 };
