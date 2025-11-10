@@ -36,12 +36,6 @@ header {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
 }
 
-header .logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 header .logo img {
   height: 100px;
   cursor: pointer;
@@ -61,13 +55,11 @@ header .logo img:hover {
   background: #8a2be2;
   border: none;
   cursor: pointer;
-  font-size: 1.8rem;
   color: #fff;
   padding: 8px 12px;
   border-radius: 10px;
   transition: all 0.3s ease;
   z-index: 1004;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 #btn-carrinho:hover {
@@ -88,7 +80,6 @@ header .logo img:hover {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 }
 
 /* =======================
@@ -98,8 +89,6 @@ nav {
   margin-top: 130px;
   display: flex;
   justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
   padding: 10px 15px;
 }
 
@@ -112,25 +101,6 @@ nav input#search {
   width: 200px;
 }
 
-nav input#search::placeholder {
-  color: #ccc;
-}
-
-nav button {
-  background: #8a2be2;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.3s;
-}
-
-nav button:hover {
-  background: #b966ff;
-}
-
 /* =======================
    PRODUTOS
 ======================= */
@@ -141,82 +111,48 @@ main#produtos {
   padding: 15px;
 }
 
-.card {
+.produto {
   background: #1f1f1f;
   border-radius: 12px;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-  transition: transform 0.3s, box-shadow 0.3s;
+  padding-bottom: 10px;
+  text-align: center;
+  transition: transform 0.3s;
 }
 
-.card:hover {
+.produto:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(138, 43, 226, 0.7);
 }
 
-.card .img-wrapper {
-  position: relative;
-}
-
-.card .img-wrapper img {
+.produto img {
   width: 100%;
   height: 180px;
   object-fit: cover;
   cursor: pointer;
 }
 
-.sob-encomenda {
+.selo-encomenda {
   position: absolute;
   top: 10px;
   left: 10px;
   background: #ff0000;
   color: #fff;
-  font-weight: 700;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   padding: 4px 8px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
-  z-index: 10;
+  border-radius: 4px;
 }
 
-/* CARD BODY */
-.card .card-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: 1;
-  padding: 10px;
-}
-
-.card h3 {
-  text-align: center;
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: 5px;
-}
-
-.card p {
-  text-align: center;
-  color: #ccc;
-  margin-bottom: 10px;
-}
-
-.card .btn-add {
+button.adicionar {
   background: #8a2be2;
-  color: #fff;
   border: none;
-  width: 100%;
-  padding: 10px;
+  color: white;
+  padding: 8px;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s;
+  width: 90%;
 }
 
-.card .btn-add:hover {
+button.adicionar:hover {
   background: #b966ff;
 }
 
@@ -236,100 +172,10 @@ main#produtos {
   display: flex;
   flex-direction: column;
   z-index: 1005;
-  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.7);
 }
 
 #carrinho.active {
   transform: translateX(0);
-}
-
-#carrinho h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 1.6rem;
-  color: #b966ff;
-}
-
-#fechar-carrinho {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #8a2be2;
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  z-index: 1010;
-  transition: background 0.3s;
-}
-
-#fechar-carrinho:hover {
-  background: #b966ff;
-}
-
-.item-carrinho {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #2a2a2a;
-  padding: 10px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-}
-
-.item-carrinho img {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 6px;
-}
-
-.item-carrinho .info {
-  flex: 1;
-}
-
-.item-carrinho .info p:first-child {
-  font-weight: 600;
-}
-
-.item-carrinho .quantidade {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-}
-
-.item-carrinho .quantidade button {
-  background: #8a2be2;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.item-carrinho .quantidade button:hover {
-  background: #b966ff;
-}
-
-#carrinho button#limpar,
-#carrinho button#finalizar {
-  background: #8a2be2;
-  color: #fff;
-  margin-top: 8px;
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  border: none;
-  font-weight: 600;
-  transition: background 0.3s;
-}
-
-#carrinho button:hover {
-  background: #b966ff;
 }
 
 /* =======================
@@ -348,65 +194,10 @@ main#produtos {
   z-index: 2000;
 }
 
-#modal .content {
-  position: relative;
-  width: 90%;
-  max-width: 600px;
-  height: 70%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 #modal img {
   max-width: 100%;
   max-height: 100%;
   border-radius: 10px;
-  cursor: grab;
-}
-
-#modal .close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #8a2be2;
-  color: #fff;
-  border: none;
-  padding: 8px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.2rem;
-}
-
-#modal .close:hover {
-  background: #b966ff;
-}
-
-#modal .prev,
-#modal .next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #8a2be2;
-  color: #fff;
-  border: none;
-  padding: 10px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.2rem;
-}
-
-#modal .prev:hover,
-#modal .next:hover {
-  background: #b966ff;
-}
-
-#modal .prev {
-  left: -40px;
-}
-
-#modal .next {
-  right: -40px;
 }
 
 /* =======================
@@ -419,36 +210,4 @@ footer {
   background: #0b0b0b;
   color: #ccc;
   margin-top: 30px;
-  clear: both;
-}
-
-/* =======================
-   RESPONSIVO
-======================= */
-@media (max-width: 768px) {
-  main#produtos {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    padding: 10px;
-  }
-
-  .card img {
-    height: 150px;
-  }
-
-  #carrinho {
-    width: 90%;
-  }
-
-  #modal .prev {
-    left: 10px;
-  }
-
-  #modal .next {
-    right: 10px;
-  }
-
-  nav input#search {
-    width: 140px;
-  }
 }
