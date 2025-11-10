@@ -1,0 +1,287 @@
+/* ======== BASE ======== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #0b0b0b;
+  color: #fff;
+}
+
+/* ======== HEADER ======== */
+header {
+  background: linear-gradient(90deg, #3a0074, #6b00b8);
+  padding: 12px 20px;
+  display: flex;
+  justify-content: center; /* centraliza a logo */
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+header img.logo {
+  height: 45px;
+}
+
+/* botão carrinho no canto direito */
+#btn-carrinho {
+  position: absolute;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+#btn-carrinho img {
+  width: 32px;
+  filter: brightness(0) invert(1);
+}
+
+#badge {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  background: #ff007b;
+  color: white;
+  font-size: 13px;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+/* ======== BUSCA ======== */
+#search {
+  display: block;
+  width: 90%;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 10px 14px;
+  border: 2px solid #6b00b8;
+  border-radius: 10px;
+  font-size: 16px;
+  background: #111;
+  color: #fff;
+  outline: none;
+}
+#search::placeholder {
+  color: #aaa;
+}
+
+/* ======== GRID PRODUTOS ======== */
+#produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-items: center;
+}
+
+/* ======== CARD PRODUTO ======== */
+.produto {
+  background: #151515;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* força o botão ficar embaixo */
+  position: relative;
+  box-shadow: 0 0 10px #3a0074;
+  transition: transform 0.2s ease;
+}
+.produto:hover {
+  transform: scale(1.03);
+}
+
+.produto img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  background: #000;
+}
+
+.produto h3 {
+  font-size: 15px;
+  padding: 10px;
+  text-align: center;
+  min-height: 48px; /* altura mínima p/ alinhar */
+}
+
+.produto p {
+  text-align: center;
+  font-weight: bold;
+  color: #b366ff;
+  margin-bottom: 8px;
+}
+
+.produto button {
+  margin: 10px;
+  background: linear-gradient(90deg, #6b00b8, #9d00ff);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.produto button:hover {
+  background: linear-gradient(90deg, #8d00ff, #b700ff);
+}
+
+/* ======== SELO ENCOMENDA ======== */
+.selo-encomenda {
+  background: #ff007b;
+  color: #fff;
+  font-size: 11px;
+  font-weight: bold;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 4px 8px;
+  border-radius: 5px;
+  z-index: 2;
+}
+
+/* ======== MODAL ======== */
+#modal {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.9);
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+#modal img {
+  max-width: 90%;
+  max-height: 70vh;
+  border-radius: 10px;
+}
+
+#modal .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+#modal .prev, #modal .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 32px;
+  cursor: pointer;
+  color: #fff;
+  background: rgba(0,0,0,0.4);
+  border-radius: 50%;
+  padding: 10px;
+}
+#modal .prev { left: 20px; }
+#modal .next { right: 20px; }
+
+/* ======== CARRINHO ======== */
+#carrinho {
+  position: fixed;
+  right: -100%;
+  top: 0;
+  width: 320px;
+  height: 100%;
+  background: #0f0f0f;
+  transition: right 0.3s;
+  padding: 20px;
+  overflow-y: auto;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.5);
+  z-index: 999;
+}
+
+#carrinho.active { right: 0; }
+
+.item-carrinho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #151515;
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.item-carrinho img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+}
+
+.item-carrinho span {
+  flex: 1;
+  margin: 0 6px;
+  font-size: 13px;
+}
+
+.qtd button {
+  background: #6b00b8;
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.total {
+  text-align: center;
+  font-weight: bold;
+  color: #b366ff;
+  margin-top: 15px;
+}
+
+#limpar, #finalizar {
+  display: block;
+  width: 100%;
+  border: none;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#limpar {
+  background: #333;
+  color: #fff;
+}
+
+#finalizar {
+  background: linear-gradient(90deg, #6b00b8, #9d00ff);
+  color: #fff;
+}
+
+/* ======== RESPONSIVIDADE ======== */
+@media (max-width: 768px) {
+  header {
+    padding: 14px;
+    justify-content: center;
+  }
+
+  #btn-carrinho {
+    right: 14px;
+  }
+
+  #produtos {
+    grid-template-columns: repeat(2, 1fr); /* 2 produtos por linha no celular */
+  }
+
+  .produto img {
+    height: 150px;
+  }
+}
