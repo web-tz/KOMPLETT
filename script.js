@@ -19,7 +19,7 @@ const produtos = [
   {id:18,nome:'Pré-Treino Evolution Workout 300g Sabor Melancia Soldiers Nutrition',preco:64.99,categoria:'Fitness',qtd:0,imagens:['pretreinomelanciacapa.png','pretreinomelancia1.png','pretreinomelancia2.png','pretreinomelancia3.png']},
   {id:19,nome:'Perfume Edt Paris Elysees Black Caviar Masc 100ml',preco:99.99,categoria:'Perfumes',qtd:0,imagens:['perfblackcapa.png','perfblack1.png']},
   {id:20,nome:'Paris Elysees Perfume Masculino Silver Caviar 100ml',preco:99.99,categoria:'Perfumes',qtd:0,imagens:['perfsilvercapa.png','perfsilver1.png']},
-  {id:21,nome:'Perfume Blue Caviar Paris Elysees - Masculino Eau De Toilete',preco:99.99,categoria:'Perfumes',qtd:0,imagens:['perfazulcapa.png','perfazul1.png']}
+  {id:21,nome:'Perfume Blue Caviar Paris Elysees - Masculino Eau 100ml',preco:99.99,categoria:'Perfumes',qtd:0,imagens:['perfazulcapa.png','perfazul1.png']}
 ];
 
 // ===== ELEMENTOS =====
@@ -202,5 +202,6 @@ aplicarFiltro();
 
 // ===== PESQUISA =====
 search.addEventListener('input', aplicarFiltro);
+
 
 
