@@ -1,6 +1,6 @@
 // ===== PRODUTOS =====
 const produtos = [
-  {id:1,nome:'Fone Bluetooth 5.0 Branco Intra-Auricular',preco:29.99,categoria:'Eletrônicos',qtd:1,imagens:['CapafoneN1.png','CapafoneN2.png','CapafoneN3.png','CapafoneN4.png','CapafoneN5.png']},
+  {id:1,nome:'Fone Bluetooth 5.0 Branco Intra-Auricular',preco:29.99,categoria:'Eletrônicos',qtd:0,imagens:['CapafoneN1.png','CapafoneN2.png','CapafoneN3.png','CapafoneN4.png','CapafoneN5.png']},
   {id:2,nome:'Fone Sem Fio Bluetooth i12 TWS',preco:31.99,categoria:'Eletrônicos',qtd:2,imagens:['Capafonetw.png','CapafoneN1tw.png','CapafoneN2tw.png','CapafoneN4tw.png','CapafoneN5tw.png','CapafoneN6tw.png']},
   {id:3,nome:'Cabo Carregamento Turbo Kaid Tipo C',preco:17.99,categoria:'Cabos e Carregadores',qtd:2,imagens:['CapoTIPOC.png','cabotipoCc.png','CaboC.png']},
   {id:4,nome:'Cabo Carregamento Turbo IOS',preco:17.99,categoria:'Cabos e Carregadores',qtd:3,imagens:['CaboIOS.png','CabokaidiN1.png','CabotipoIOS.png']},
@@ -8,9 +8,7 @@ const produtos = [
   {id:6,nome:'Whey Concentrado Ultra Protein Refil 900g Sabor Morango - FTW',preco:69.99,categoria:'Fitness',qtd:0,imagens:['wheyultramorangocapa.png','wheyultramorango1.png','wheyultramorango2.png']},
   {id:7,nome:'Creatina Monohidratada 300g 100% Pura Dark Lab',preco:59.90,categoria:'Fitness',qtd:0,imagens:['creatinadarkcapa.png','creatinadark1.png','creatinadark2.png','creatinadark3.png']},
   {id:8,nome:'Pasta de Amendoim com Whey Protein Dr. Peanut 250g Avelã',preco:34.99,categoria:'Fitness',qtd:0,imagens:['pstamendavelacapa.png','pstamendavela1.png']},
-  {id:9,nome:'Whey Protein Gourmet 907g Cookies Cream Sabor Cookies & Cream',preco:59.99,categoria:'Fitness',qtd:0,imagens:['wheyforbiscookiescapa.png','wheyforbiscookies1.png']},
   {id:10,nome:'Creatina Monohidratada 100% Pura Refil 300g - FTW',preco:45.00,categoria:'Fitness',qtd:0,imagens:['creatinaftwcapa.png','creatinaftw1.png','creatinaftw2.png']},
-  {id:12,nome:'Whey Protein Gourmet 900g - Fn Forbis - Proteina Sabor Chocolate trufado',preco:59.99,categoria:'Fitness',qtd:0,imagens:['wheychocotrufcapa.png','wheychocotruf1.png']},
   {id:13,nome:'Coqueteleira Shaker - Academia 700ml Dark Lab',preco:29.99,categoria:'Fitness',qtd:0,imagens:['coqdarklabcapa.png','coqdarklab1.png','coqdarklab2.png']},
   {id:14,nome:'Strap Musculação - Tala Strep Treino Academia - Resistente',preco:25.00,categoria:'Fitness',qtd:0,imagens:['strappretocapa.png','strappretopa.png','strappretor.png','strappretov.png','strappretovv.png','strappretofi.png']},
   {id:15,nome:'Pré-Treino Evolution Workout 300g Sabor Blueberry Soldiers Nutrition',preco:64.99,categoria:'Fitness',qtd:0,imagens:['soldiersblueberrcapa.png','soldiersblueberr1.png','soldiersblueberr2.png','soldiersblueberr3.png']},
@@ -202,6 +200,7 @@ aplicarFiltro();
 
 // ===== PESQUISA =====
 search.addEventListener('input', aplicarFiltro);
+
 
 
 
