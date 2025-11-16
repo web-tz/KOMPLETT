@@ -17,7 +17,12 @@ const produtos = [
   {id:18,nome:'Pré-Treino Evolution Workout 300g Sabor Melancia Soldiers Nutrition',preco:64.99,categoria:'Fitness',qtd:0,imagens:['pretreinomelanciacapa.png','pretreinomelancia1.png','pretreinomelancia2.png','pretreinomelancia3.png']},
   {id:19,nome:'Perfume Edt Paris Elysees Black Caviar Masc 100ml',preco:99.99,categoria:'Perfumes',qtd:0,imagens:['perfblackcapa.png','perfblack1.png']},
   {id:20,nome:'Perfume Paris Elysees Masculino Silver Caviar 100ml',preco:99.99,categoria:'Perfumes',qtd:0,imagens:['perfsilvercapa.png','perfsilver1.png']},
-  {id:21,nome:'Perfume Blue Caviar Paris Elysees - Masculino Eau 100ml',preco:99.99,categoria:'Perfumes',qtd:0,imagens:['perfazulcapa.png','perfazul1.png']}
+  {id:21,nome:'Perfume Blue Caviar Paris Elysees - Masculino Eau 100ml',preco:99.99,categoria:'Perfumes',qtd:0,imagens:['perfazulcapa.png','perfazul1.png']},
+  {id:22,nome:'Protetor De Punho Munhequeira chivunk Esportes Preto Vermelho',preco:29.99,categoria:'Fitness',qtd:0,imagens:['munhequeiracapa.png','munhequeira1.png','munhequeira2.png']},
+  {id:23,nome:'Hand Grip Ajuste 5kg A 60kg Fisioterapia Exercício Antebraço',preco:25.00,categoria:'Fitness',qtd:0,imagens:['handcapa.png','hand1.png','hand2.png','hand3.png','hand4.png']},
+  {id:24,nome:'Kit 3 Camisetas Básicas Dry Fit Lisa Básico Slim P M G GG',preco:59.99,categoria:'Roupas',qtd:0,imagens:['kitcamisacapa.png','kitcamisa1.png','kitcamisa2.png','kitcamisa3.png']},
+  {id:25,nome:'Relógio Smartwatch T900 Ultra 49mm | Pulseiras sortidas: a cor acompanha a disponibilidade do estoque.',preco:84.99,categoria:'Smartwatches',qtd:0,imagens:['t900capa.png','t9001.png','t9002.png','t9003.png']},
+  {id:26,nome:'Smartwatch T800 Ultra Série 8 – Prateado com Pulseira Laranja',preco:79.99,categoria:'Smartwatches',qtd:0,imagens:['t800capa.png','t8001.png','t8002.png','t8003.png']}
 ];
 
 // ===== ELEMENTOS =====
@@ -205,3 +210,4 @@ aplicarFiltro();
 
 // ===== PESQUISA =====
 search.addEventListener('input', aplicarFiltro);
+
