@@ -16,7 +16,7 @@ const produtos = [
   {id:17,nome:'Pré-Treino Evolution Workout 300g Sabor Limonada Suiça Soldiers Nutrition',preco:64.99,categoria:'Fitness',qtd:0,imagens:['pretreinolimonadacapa.png','pretreinolimonada1.png','pretreinolimonada2.png','pretreinolimonada3.png']},
   {id:18,nome:'Pré-Treino Evolution Workout 300g Sabor Melancia Soldiers Nutrition',preco:64.99,categoria:'Fitness',qtd:0,imagens:['pretreinomelanciacapa.png','pretreinomelancia1.png','pretreinomelancia2.png','pretreinomelancia3.png']},
   {id:19,nome:'Perfume Edt Paris Elysees Black Caviar Masc 100ml',preco:99.99,categoria:'Perfumes',qtd:0,imagens:['perfblackcapa.png','perfblack1.png']},
-  {id:20,nome:'Paris Elysees Perfume Masculino Silver Caviar 100ml',preco:99.99,categoria:'Perfumes',qtd:0,imagens:['perfsilvercapa.png','perfsilver1.png']},
+  {id:20,nome:'Perfume Paris Elysees Masculino Silver Caviar 100ml',preco:99.99,categoria:'Perfumes',qtd:0,imagens:['perfsilvercapa.png','perfsilver1.png']},
   {id:21,nome:'Perfume Blue Caviar Paris Elysees - Masculino Eau 100ml',preco:99.99,categoria:'Perfumes',qtd:0,imagens:['perfazulcapa.png','perfazul1.png']}
 ];
 
@@ -149,17 +149,22 @@ function atualizarCarrinho() {
         <button class="mais">+</button>
       </div>
     `;
-    div.querySelector('.menos').onclick = () => {
+
+    // ===== CORREÇÃO AQUI: addEventListener =====
+    div.querySelector('.menos').addEventListener('click', () => {
       item.qtd--;
       if (item.qtd <= 0) carrinho = carrinho.filter(i => i.id !== item.id);
       salvarCarrinho();
       atualizarCarrinho();
-    };
-    div.querySelector('.mais').onclick = () => {
+    });
+
+    div.querySelector('.mais').addEventListener('click', () => {
       item.qtd++;
       salvarCarrinho();
       atualizarCarrinho();
-    };
+    });
+    // ============================================
+
     itensCarrinho.appendChild(div);
   });
   const totalDiv = document.createElement('div');
@@ -200,7 +205,3 @@ aplicarFiltro();
 
 // ===== PESQUISA =====
 search.addEventListener('input', aplicarFiltro);
-
-
-
-
